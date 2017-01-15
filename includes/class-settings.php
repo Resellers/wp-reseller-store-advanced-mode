@@ -62,8 +62,8 @@ final class Settings {
 		}
 
 		$api_market = rstore_get_option('api_market');
-		if ( $api_market ) {
-			add_filter( 'api_market', [ $this, 'api_market_filter' ] );
+		if ( ! empty( $api_market ) ) {
+			add_filter( 'rstore_api_market_id', [ $this, 'api_market_filter' ] );
 		}
 
 	}
@@ -284,24 +284,17 @@ final class Settings {
 		}
 
 		rstore_update_option( 'pl_id', $pl_id );
-
-		if ( '' !== $currency ) {
-			rstore_update_option( 'currency', $currency );
-		}
-
+		rstore_update_option( 'currency', $currency );
 		rstore_update_option( 'api_tld', $api_tld );
 		rstore_update_option( 'api_tld_override', $api_tld_override );
-
 		rstore_update_option( 'api_market', $api_market );
 
 		if ( 0 < $sync_ttl ) {
 			rstore_update_option( 'sync_ttl', $sync_ttl );
 		}
 		else {
-			rstore_update_option( 'sync_ttl', HOUR_IN_SECONDS / 4 );
+			rstore_update_option( 'sync_ttl', '' );
 		}
-
-
 
 		//force a rsync update
 		rstore_update_option( 'last_sync', 0 );
