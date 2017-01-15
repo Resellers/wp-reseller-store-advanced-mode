@@ -109,10 +109,10 @@ final class Settings {
 	 * @since  NEXT
 	 */
 	public function api_tld_filter() {
-		$api_tld = rstore_get_option('api_tld');
+		$api_tld_override = rstore_get_option('api_tld_override');
 
-		if ( '' !== $api_tld) {
-			return $api_tld;
+		if ( $api_tld_override ) {
+			return rstore_get_option('api_tld');
 		} else {
 			return $this->tld;
 		}
@@ -135,6 +135,7 @@ final class Settings {
 		$settings = array();
 		$settings[] = array( 'name' => 'pl_id','label' => esc_html__( 'Private Label Id', 'reseller-store-advanced' ), 'type' => 'text' );
 		$settings[] = array( 'name' => 'currency', 'label' => esc_html__( 'Currency', 'reseller-store-advanced' ), 'type' => 'currency' );
+		$settings[] = array( 'name' => 'api_tld_override', 'label' => esc_html__( 'Override Api Url', 'reseller-store-advanced' ), 'type' => 'checkbox' );
 		$settings[] = array( 'name' => 'api_tld', 'label' => esc_html__( 'API Url', 'reseller-store-advanced' ), 'type' => 'text' );
 		return $settings;
 	}
@@ -159,31 +160,28 @@ final class Settings {
 		}
 		</style>
 
+
+		<div class="wrap">
+			<h1> <?php esc_html_e( 'Reseller Advanced Settings', 'reseller-store-advanced' ) ?> </h1>
+			<form id="rstore-settings-form" >
+			<table class="form-table">
+			<tbody>
+
 		<?php
-		echo '<div class="wrap">';
-			esc_html__( '<h1>Reseller Advanced Mode Settings</h1>', 'reseller-store-advanced' );
-
-			echo '<form id="rstore-settings-form" >';
-			echo '<table class="form-table">';
-			echo '<tbody>';
-
-
-			settings_fields( 'reseller_settings' );
-
+		settings_fields( 'reseller_settings' );
 
 		foreach ( $settings as $setting ) {
 			switch ( $setting['type'] ) {
 				case 'text':
 					echo '<tr>';
 					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
-					echo '<td><input type="text" style="width:100%;" id="' . $setting['name'] . '" name="' . $setting['name'] . '" value="' . rstore_get_option( $setting['name'] ) . '" /></td>';
+					echo '<td><input type="text" id="' . $setting['name'] . '" name="' . $setting['name'] . '" value="' . rstore_get_option( $setting['name'] ) . '" class="regular-text"></td>';
 					echo '</tr>';
 				break;
 				case 'checkbox':
 					echo '<tr>';
 					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
-
-					echo '<td><input type="checkbox" id="' . $setting['name'] . '" name="' . $setting['name'] . '" value="1" ' . checked( 1, rstore_get_option( $setting['name'], 1 ), false ) . '  /></td>';
+					echo '<td><input type="checkbox" id="' . $setting['name'] . '" name="' . $setting['name'] . '" value="1" ' . checked( rstore_get_option( $setting['name'], 0 ), 1, false ) . '  /></td>';
 					echo '</tr>';
 					break;
 
@@ -191,7 +189,7 @@ final class Settings {
 					$currencies = array('AED','ARS','AUD','BRL','CAD','CHF','CLP','CNY','COP','CZK','DKK','EGP','EUR','GBP','HKD','HUF','IDR','ILS','INR','JPY','KRW','MAD','MXN','MYR','NOK','NZD','PEN','PHP','PKR','PLN','RON','RUB','SAR','SEK','SGD','THB','TRY','TWD','UAH','USD','UYU','VND','ZAR');
 					echo '<tr>';
 					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
-					echo '<td><select title="'. $setting['label'] .'" style="width:100%;" id="' . $setting['name'] . '" name="' . $setting['name'] . '" >';
+					echo '<td><select title="'. $setting['label'] .'" id="' . $setting['name'] . '" name="' . $setting['name'] . '" >';
 					foreach ( $currencies as $currency ) {
 						if ($currency === rstore_get_option( $setting['name'], 'USD' ) ) {
 							echo "<option selected=\"selected\" value=\"$currency\">$currency</option>";
@@ -210,11 +208,10 @@ final class Settings {
 			</table>
 			<p class="submit">
 				<button type="submit" class="button button-primary"><?php esc_html_e( 'Save Changes', 'reseller-store-advanced' ); ?></button>
-			</p>
 				<img src="<?php echo esc_url( includes_url( 'images/spinner-2x.gif' ) ); ?>" class="rstore-spinner">
+			</p>
 			</form>
 		</div>
-
 
 		<?php
 
@@ -232,7 +229,8 @@ final class Settings {
 	public static function save() {
 		$pl_id = absint( filter_input( INPUT_POST, 'pl_id' ) );
 		$currency = filter_input( INPUT_POST, 'currency' );
-		$api_tld = filter_input( INPUT_POST, 'currency' );
+		$api_tld_override = filter_input( INPUT_POST, 'api_tld_override' );
+		$api_tld = filter_input( INPUT_POST, 'api_tld' );
 
 		if ( 0 === $pl_id ) {
 
@@ -249,7 +247,8 @@ final class Settings {
 			rstore_update_option( 'currency', $currency );
 		}
 
-		rstore_update_option( 'currency', $api_tld );
+		rstore_update_option( 'api_tld', $api_tld );
+		rstore_update_option( 'api_tld_override', $api_tld_override );
 
 		wp_send_json_success();
 	}
