@@ -1,5 +1,7 @@
 <?php
 
+namespace Reseller_Store_Advanced;
+
 /**
  * Check if we are on a specific admin screen.
  *
@@ -10,7 +12,7 @@
  *
  * @return bool  Returns `true` if the current admin URL contains the specified URI, otherwise `false`.
  */
-function rstore_is_admin_uri( $request_uri, $strict = true ) {
+function rstore2_is_admin_uri( $request_uri, $strict = true ) {
 
   $strpos = strpos( basename( filter_input( INPUT_SERVER, 'REQUEST_URI' ) ), $request_uri );
   $result = ( $strict ) ? ( 0 === $strpos ) : ( false !== $strpos );

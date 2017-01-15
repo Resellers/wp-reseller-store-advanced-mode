@@ -13,15 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class Settings {
 
 	/**
-	 * Top-level domain for URLs.
-	 *
-	 * @since NEXT
-	 *
-	 * @var string
-	 */
-	private $tld = 'secureserver.net';
-
-	/**
 	 * Post type slug.
 	 *
 	 * @since NEXT
@@ -60,7 +51,20 @@ final class Settings {
 		add_action('admin_menu', [ $this, 'register' ] );
 		add_action( 'wp_ajax_rstore_advanced_save', [ __CLASS__, 'save' ] );
 
-		add_filter( 'rstore_api_tld', [ $this, 'api_tld_filter' ] );
+		$api_tld_override = rstore_get_option('api_tld_override');
+		if ( $api_tld_override ) {
+			add_filter( 'rstore_api_tld', [ $this, 'api_tld_filter' ] );
+		}
+
+		$rstore_sync_ttl = rstore_get_option('rstore_sync_ttl');
+		if ( $rstore_sync_ttl ) {
+			add_filter( 'rstore_sync_ttl', [ $this, 'rstore_sync_ttl_filter' ] );
+		}
+
+		$api_market = rstore_get_option('api_market');
+		if ( $api_market ) {
+			add_filter( 'api_market', [ $this, 'api_market_filter' ] );
+		}
 
 	}
 
@@ -72,7 +76,7 @@ final class Settings {
 	 */
 	public function admin_enqueue_scripts() {
 
-		if ( ! rstore_is_admin_uri( self::PAGE_SLUG ) ) {
+		if ( ! rstore2_is_admin_uri( self::PAGE_SLUG ) ) {
 
 			return;
 
@@ -93,12 +97,12 @@ final class Settings {
 	public function register() {
 
 		add_submenu_page(
-					self::PAGE_SLUG,
-					esc_html__( 'Reseller Store Advanced Options', 'reseller-store-advanced' ),
-					esc_html__( 'Advanced Options', 'reseller-store-advanced' ),
-					'manage_options',
-					self::SLUG . '_settings',
-					[ $this, 'edit_settings' ] );
+			self::PAGE_SLUG,
+			esc_html__( 'Reseller Store Advanced Options', 'reseller-store-advanced' ),
+			esc_html__( 'Advanced Options', 'reseller-store-advanced' ),
+			'manage_options',
+			self::SLUG . '_settings',
+			[ $this, 'edit_settings' ] );
 
 	}
 
@@ -109,19 +113,33 @@ final class Settings {
 	 * @since  NEXT
 	 */
 	public function api_tld_filter() {
-		$api_tld_override = rstore_get_option('api_tld_override');
+		return rstore_get_option('api_tld');
+	}
 
-		if ( $api_tld_override ) {
-			return rstore_get_option('api_tld');
-		} else {
-			return $this->tld;
-		}
+	/**
+	 * Register the api market filter
+	 *
+	 * @action init
+	 * @since  NEXT
+	 */
+	public function api_market_filter() {
+		return rstore_get_option('api_market');
+	}
+
+	/**
+	 * Register the rstore_sync_ttl_filter filter
+	 *
+	 * @action init
+	 * @since  NEXT
+	 */
+	public function rstore_sync_ttl_filter() {
+		return rstore_get_option('rstore_sync_ttl');
 	}
 
 
-	 function edit_settings() {
+	function edit_settings() {
 
-		if ( ! rstore_is_admin_uri( self::PAGE_SLUG, false ) ) {
+		if ( ! rstore2_is_admin_uri( self::PAGE_SLUG, false ) ) {
 
 			return;
 
@@ -133,10 +151,14 @@ final class Settings {
 
 	function reseller_settings() {
 		$settings = array();
-		$settings[] = array( 'name' => 'pl_id','label' => esc_html__( 'Private Label Id', 'reseller-store-advanced' ), 'type' => 'text' );
+		$settings[] = array( 'name' => 'pl_id','label' => esc_html__( 'Private Label Id', 'reseller-store-advanced' ), 'type' => 'number' );
 		$settings[] = array( 'name' => 'currency', 'label' => esc_html__( 'Currency', 'reseller-store-advanced' ), 'type' => 'currency' );
+		$settings[] = array( 'name' => 'sync_ttl','label' => esc_html__( 'Api Sync TTL (seconds)', 'reseller-store-advanced' ), 'type' => 'number' );
+		$settings[] = array( 'name' => 'last_sync','label' => esc_html__( 'Last Api Sync', 'reseller-store-advanced' ), 'type' => 'time' );
+		$settings[] = array( 'name' => 'api_market', 'label' => esc_html__( 'Override Api Market', 'reseller-store-advanced' ), 'type' => 'text',
+			'description' => esc_html__( 'Must be in the format xx-XX (i.e. en-US, fr-FR, etc.)', 'reseller-store-advanced' ) );
 		$settings[] = array( 'name' => 'api_tld_override', 'label' => esc_html__( 'Override Api Url', 'reseller-store-advanced' ), 'type' => 'checkbox' );
-		$settings[] = array( 'name' => 'api_tld', 'label' => esc_html__( 'API Url', 'reseller-store-advanced' ), 'type' => 'text' );
+		$settings[] = array( 'name' => 'api_tld', 'label' => esc_html__( 'Api Url', 'reseller-store-advanced' ), 'type' => 'text' );
 		return $settings;
 	}
 
@@ -175,7 +197,24 @@ final class Settings {
 				case 'text':
 					echo '<tr>';
 					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
-					echo '<td><input type="text" id="' . $setting['name'] . '" name="' . $setting['name'] . '" value="' . rstore_get_option( $setting['name'] ) . '" class="regular-text"></td>';
+					echo '<td><input type="text" id="' . $setting['name'] . '" name="' . $setting['name'] . '" value="' . rstore_get_option( $setting['name'] ) . '" class="regular-text">';
+					if ( array_key_exists( 'description', $setting ) ) {
+						echo '<p class="description" id="tagline-description">' . $setting['description'] . '</p></td>';
+					}
+					echo '</td>';
+					echo '</tr>';
+				break;
+				case 'number':
+					echo '<tr>';
+					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
+					echo '<td><input type="number" id="' . $setting['name'] . '" name="' . $setting['name'] . '" value="' . rstore_get_option( $setting['name'] ) . '" class="regular-text"></td>';
+					echo '</tr>';
+				break;
+				case 'time':
+					$sync_time = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ),  rstore_get_option( $setting['name'] ), false );
+					echo '<tr>';
+					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
+					echo '<td><label id="' . $setting['name'] . '" >' . $sync_time . '</label></td>';
 					echo '</tr>';
 				break;
 				case 'checkbox':
@@ -231,6 +270,9 @@ final class Settings {
 		$currency = filter_input( INPUT_POST, 'currency' );
 		$api_tld_override = filter_input( INPUT_POST, 'api_tld_override' );
 		$api_tld = filter_input( INPUT_POST, 'api_tld' );
+		$api_market = filter_input( INPUT_POST, 'api_market' );
+		$sync_ttl = absint( filter_input( INPUT_POST, 'sync_ttl' ) );
+
 
 		if ( 0 === $pl_id ) {
 
@@ -249,6 +291,20 @@ final class Settings {
 
 		rstore_update_option( 'api_tld', $api_tld );
 		rstore_update_option( 'api_tld_override', $api_tld_override );
+
+		rstore_update_option( 'api_market', $api_market );
+
+		if ( 0 < $sync_ttl ) {
+			rstore_update_option( 'sync_ttl', $sync_ttl );
+		}
+		else {
+			rstore_update_option( 'sync_ttl', HOUR_IN_SECONDS / 4 );
+		}
+
+
+
+		//force a rsync update
+		rstore_update_option( 'last_sync', 0 );
 
 		wp_send_json_success();
 	}

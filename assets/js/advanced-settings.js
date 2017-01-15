@@ -16,7 +16,9 @@
 				'pl_id': $('#pl_id').val(),
 				'currency': $('#currency').val(),
 				'api_tld': $('#api_tld').val(),
-				'api_tld_override': $('#api_tld_override').prop('checked')? 1 : 0
+				'api_tld_override': $('#api_tld_override').prop('checked')? 1 : 0,
+				'sync_ttl': $('#sync_ttl').val(),
+				'api_market': $('#api_market').val()
 			};
 
 		submit.prop( 'disabled', true );
@@ -27,13 +29,8 @@
 			submit.prop( 'disabled', false );
 			spinner.css( 'visibility', 'hidden' );
 			if ( response.success ) {
-
-				// window.location.replace( response.data.redirect );
-
 				return false;
-
 			}
-
 
 			window.console.log( response );
 

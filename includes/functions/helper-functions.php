@@ -1,4 +1,5 @@
 <?php
+namespace Reseller_Store_Advanced;
 
 /**
  * Returns the plugin instance.
@@ -9,7 +10,7 @@
  */
 function rstore() {
 
-  return Reseller_Store_Advanced\Plugin::load();
+  return Plugin::load();
 
 }
 
@@ -25,7 +26,7 @@ function rstore() {
  */
 function rstore_prefix( $string, $use_dashes = false ) {
 
-  $prefix = ( $use_dashes ) ? str_replace( '_', '-', Reseller_Store\Plugin::PREFIX ) : Reseller_Store\Plugin::PREFIX;
+  $prefix = ( $use_dashes ) ? str_replace( '_', '-', Plugin::PREFIX ) : Plugin::PREFIX;
 
   return ( 0 === strpos( $string, $prefix ) ) ? $string : $prefix . $string;
 
