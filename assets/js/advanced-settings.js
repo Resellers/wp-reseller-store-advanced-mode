@@ -7,18 +7,13 @@
 	var save = function( e ) {
 
 		e.preventDefault();
+		var $this = $( this ),
+			submit  = $this.find( 'button' ),
+			spinner = $this.find( 'img' ),
+			data;
 
-		var $this    = $( this ),
-				submit  = $this.find( 'button' ),
-				spinner = $this.find( 'img' ),
-				data     = {
-				'action': 'rstore_advanced_save',
-				'pl_id': $('#pl_id').val(),
-				'currency': $('#currency').val(),
-				'api_tld': $('#api_tld').val(),
-				'sync_ttl': $('#sync_ttl').val(),
-				'api_market': $('#api_market').val()
-			};
+		$this.find("[name='action']").val('rstore_advanced_save');
+		data = $( this ).serialize();
 
 		submit.prop( 'disabled', true );
 		spinner.css( 'visibility', 'visible' );

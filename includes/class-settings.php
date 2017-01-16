@@ -130,6 +130,7 @@ final class Settings {
 	 * @since  NEXT
 	 */
 	public function api_tld_filter() {
+
 		return rstore_get_option('api_tld');
 	}
 
@@ -140,6 +141,7 @@ final class Settings {
 	 * @since  NEXT
 	 */
 	public function api_market_filter() {
+
 		return rstore_get_option('api_market');
 	}
 
@@ -150,11 +152,13 @@ final class Settings {
 	 * @since  NEXT
 	 */
 	public function rstore_sync_ttl_filter() {
+
 		return rstore_get_option('rstore_sync_ttl');
 	}
 
 
 	function edit_settings() {
+
 		if ( ! rstore2_is_admin_uri( self::PAGE_SLUG, false ) ) {
 
 			return;
@@ -166,6 +170,7 @@ final class Settings {
 	}
 
 	static function reseller_settings() {
+
 		$settings = array();
 		$settings[] = array( 'name' => 'pl_id','label' => esc_html__( 'Private Label Id', 'reseller-store-advanced' ), 'type' => 'number',
 		 	'description' => esc_html__( 'The private label id that you have set for your storefront.', 'reseller-store-advanced' ) );
@@ -190,6 +195,7 @@ final class Settings {
 	}
 
 	function settings_output() {
+
 		$settings = self::reseller_settings();
 
 		?>
@@ -210,6 +216,8 @@ final class Settings {
 			<tbody>
 
 		<?php
+		wp_nonce_field( 'rstore_advanced_save', 'nonce' );
+
 		settings_fields( 'reseller_settings' );
 
 		foreach ( $settings as $setting ) {
@@ -279,6 +287,16 @@ final class Settings {
 	 * @param int $pl_id (optional)
 	 */
 	public static function save() {
+
+		$nonce = filter_input( INPUT_POST, 'nonce' );
+
+		if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'rstore_advanced_save' ) ) {
+			wp_send_json_error(
+				esc_html__( 'Error: Invalid Session. Refresh the page and try again.', 'reseller-store-advanced' )
+			);
+			return;
+		}
+
 		$pl_id = absint( filter_input( INPUT_POST, 'pl_id' ) );
 
 		if ( 0 === $pl_id ) {
