@@ -16,7 +16,6 @@
 				'pl_id': $('#pl_id').val(),
 				'currency': $('#currency').val(),
 				'api_tld': $('#api_tld').val(),
-				'api_tld_override': $('#api_tld_override').prop('checked')? 1 : 0,
 				'sync_ttl': $('#sync_ttl').val(),
 				'api_market': $('#api_market').val()
 			};
