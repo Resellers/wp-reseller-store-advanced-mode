@@ -99,7 +99,7 @@ final class Settings {
 
 		}
 
-		$suffix = '';//SCRIPT_DEBUG ? '' : '.min';
+		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
 		wp_enqueue_script( 'rstore-advanced-settings', Plugin::assets_url( "js/advanced-settings{$suffix}.js" ), [ 'jquery' ], rstore()->version, true );
 
