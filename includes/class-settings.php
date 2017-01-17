@@ -233,7 +233,7 @@ final class Settings {
 					echo '<td><input type="number" id="' . $setting['name'] . '" name="' . $setting['name'] . '" value="' . rstore_get_option( $setting['name'] ) . '" class="regular-text">';
 				break;
 				case 'time':
-					$sync_time = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ),  rstore_get_option( $setting['name'] ), false );
+					$sync_time = get_date_from_gmt( date( 'Y-m-d H:i:s', rstore_get_option( $setting['name'] ) ), get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) );
 					echo '<tr>';
 					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
 					echo '<td><label id="' . $setting['name'] . '" >' . $sync_time . '</label>';
