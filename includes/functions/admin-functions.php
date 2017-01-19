@@ -14,10 +14,10 @@ namespace Reseller_Store_Advanced;
  */
 function rstore2_is_admin_uri( $request_uri, $strict = true ) {
 
-  $strpos = strpos( basename( filter_input( INPUT_SERVER, 'REQUEST_URI' ) ), $request_uri );
-  $result = ( $strict ) ? ( 0 === $strpos ) : ( false !== $strpos );
+	$strpos = strpos( basename( filter_input( INPUT_SERVER, 'REQUEST_URI' ) ), $request_uri );
+	$result = ( $strict ) ? ( 0 === $strpos ) : ( false !== $strpos );
 
-  return ( is_admin() && $result );
+	return ( is_admin() && $result );
 
 }
 
@@ -26,22 +26,22 @@ function rstore2_is_admin_uri( $request_uri, $strict = true ) {
  *
  * @since NEXT
  *
- * @param string $endpoint (optional)
- * @param array  $args (optional)
+ * @param string                   $endpoint (optional)
+ * @param array                    $args (optional)
  * @param int    status (optional)
  */
 function rstore_admin_redirect( $endpoint = '', array $args = [], $status = 302 ) {
 
-  // Allow full admin URL to be passed as $endpoint
-  $endpoint = preg_replace( '/^.*\/wp-admin(\/|$)/', '', $endpoint );
+	// Allow full admin URL to be passed as $endpoint
+	$endpoint = preg_replace( '/^.*\/wp-admin(\/|$)/', '', $endpoint );
 
-  wp_safe_redirect(
-    esc_url_raw(
-      add_query_arg( $args, admin_url( $endpoint ) )
-    ),
-    $status
-  );
+	wp_safe_redirect(
+		esc_url_raw(
+			add_query_arg( $args, admin_url( $endpoint ) )
+		),
+		$status
+	);
 
-  exit;
+	exit;
 
 }

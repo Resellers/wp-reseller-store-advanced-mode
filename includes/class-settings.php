@@ -34,17 +34,15 @@ final class Settings {
 	 * Array of Currencies.
 	 *
 	 * @since NEXT
-	 *
 	 */
-	static $currencies = ['USD','AED','ARS','AUD','BRL','CAD','CHF','CLP','CNY','COP','CZK','DKK','EGP','EUR','GBP','HKD','HUF','IDR','ILS','INR','JPY','KRW','MAD','MXN','MYR','NOK','NZD','PEN','PHP','PKR','PLN','RON','RUB','SAR','SEK','SGD','THB','TRY','TWD','UAH','UYU','VND','ZAR'];
+	static $currencies = [ 'USD','AED','ARS','AUD','BRL','CAD','CHF','CLP','CNY','COP','CZK','DKK','EGP','EUR','GBP','HKD','HUF','IDR','ILS','INR','JPY','KRW','MAD','MXN','MYR','NOK','NZD','PEN','PHP','PKR','PLN','RON','RUB','SAR','SEK','SGD','THB','TRY','TWD','UAH','UYU','VND','ZAR' ];
 
 	/**
 	 * Array of markests.
 	 *
 	 * @since NEXT
-	 *
 	 */
-	static $markets = ['default', 'da-DK', 'de-DE', 'el-GR', 'en-US', 'es-MX', 'fi-FI', 'fr-FR', 'hi-IN', 'id-ID', 'it-IT', 'ja-JP', 'ko-KR', 'mr-IN', 'nb-NO', 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sv-SE', 'ta-IN', 'th-TH', 'tr-TR', 'uk-UA', 'vi-VN', 'zh-CN', 'zh-TW'];
+	static $markets = [ 'default', 'da-DK', 'de-DE', 'el-GR', 'en-US', 'es-MX', 'fi-FI', 'fr-FR', 'hi-IN', 'id-ID', 'it-IT', 'ja-JP', 'ko-KR', 'mr-IN', 'nb-NO', 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sv-SE', 'ta-IN', 'th-TH', 'tr-TR', 'uk-UA', 'vi-VN', 'zh-CN', 'zh-TW' ];
 
 
 	/**
@@ -65,20 +63,20 @@ final class Settings {
 
 		add_action( 'admin_enqueue_scripts',  [ $this, 'admin_enqueue_scripts' ] );
 		add_action( 'admin_init', [ $this, 'reseller_register_settings' ] );
-		add_action('admin_menu', [ $this, 'register' ] );
+		add_action( 'admin_menu', [ $this, 'register' ] );
 		add_action( 'wp_ajax_rstore_advanced_save', [ __CLASS__, 'save' ] );
 
-		$api_tld = rstore_get_option('api_tld');
+		$api_tld = rstore_get_option( 'api_tld' );
 		if ( ! empty( $api_tld ) ) {
 			add_filter( 'rstore_api_tld', [ $this, 'api_tld_filter' ] );
 		}
 
-		$rstore_sync_ttl = rstore_get_option('rstore_sync_ttl');
+		$rstore_sync_ttl = rstore_get_option( 'rstore_sync_ttl' );
 		if ( $rstore_sync_ttl ) {
 			add_filter( 'rstore_sync_ttl', [ $this, 'rstore_sync_ttl_filter' ] );
 		}
 
-		$api_market = rstore_get_option('api_market');
+		$api_market = rstore_get_option( 'api_market' );
 		if ( ! empty( $api_market ) &&  $api_market !== 'default' ) {
 			add_filter( 'rstore_api_market_id', [ $this, 'api_market_filter' ] );
 		}
@@ -119,7 +117,7 @@ final class Settings {
 			esc_html__( 'Advanced Options', 'reseller-store-advanced' ),
 			'manage_options',
 			self::SLUG . '_settings',
-			[ $this, 'edit_settings' ] );
+		[ $this, 'edit_settings' ] );
 
 	}
 
@@ -131,7 +129,7 @@ final class Settings {
 	 */
 	public function api_tld_filter() {
 
-		return rstore_get_option('api_tld');
+		return rstore_get_option( 'api_tld' );
 	}
 
 	/**
@@ -142,7 +140,7 @@ final class Settings {
 	 */
 	public function api_market_filter() {
 
-		return rstore_get_option('api_market');
+		return rstore_get_option( 'api_market' );
 	}
 
 	/**
@@ -153,7 +151,7 @@ final class Settings {
 	 */
 	public function rstore_sync_ttl_filter() {
 
-		return rstore_get_option('rstore_sync_ttl');
+		return rstore_get_option( 'rstore_sync_ttl' );
 	}
 
 
@@ -172,18 +170,40 @@ final class Settings {
 	static function reseller_settings() {
 
 		$settings = array();
-		$settings[] = array( 'name' => 'pl_id','label' => esc_html__( 'Private Label Id', 'reseller-store-advanced' ), 'type' => 'number',
-		 	'description' => esc_html__( 'The private label id that you have set for your storefront.', 'reseller-store-advanced' ) );
-		$settings[] = array( 'name' => 'currency', 'label' => esc_html__( 'Currency', 'reseller-store-advanced' ), 'type' => 'select', 'list' => self::$currencies,
-			'description' => esc_html__( 'Set the currency to display on your storefront.', 'reseller-store-advanced' ) );
-		$settings[] = array( 'name' => 'api_market', 'label' => esc_html__( 'Override Api Market', 'reseller-store-advanced' ), 'type' => 'select', 'list' => self::$markets,
-			'description' => esc_html__( 'Override your default language selected in the wordpress setup.', 'reseller-store-advanced' ) );
-		$settings[] = array( 'name' => 'sync_ttl','label' => esc_html__( 'Api Sync TTL (seconds)', 'reseller-store-advanced' ), 'type' => 'number',
-		  'description' => esc_html__( 'Reseller store will check the api for changes periodically. The default is 15 minutes (900 seconds).', 'reseller-store-advanced' ) );
+		$settings[] = array(
+		'name' => 'pl_id',
+		'label' => esc_html__( 'Private Label Id', 'reseller-store-advanced' ),
+		'type' => 'number',
+		 	'description' => esc_html__( 'The private label id that you have set for your storefront.', 'reseller-store-advanced' ),
+		);,
+		$settings[] = array(
+		'name' => 'currency',
+		'label' => esc_html__( 'Currency', 'reseller-store-advanced' ),
+		'type' => 'select',
+		'list' => self::$currencies,
+			'description' => esc_html__( 'Set the currency to display on your storefront.', 'reseller-store-advanced' ),
+		);,
+		$settings[] = array(
+		'name' => 'api_market',
+		'label' => esc_html__( 'Override Api Market', 'reseller-store-advanced' ),
+		'type' => 'select',
+		'list' => self::$markets,
+			'description' => esc_html__( 'Override your default language selected in the wordpress setup.', 'reseller-store-advanced' ),
+		);,
+		$settings[] = array(
+		'name' => 'sync_ttl',
+		'label' => esc_html__( 'Api Sync TTL (seconds)', 'reseller-store-advanced' ),
+		'type' => 'number',
+		  'description' => esc_html__( 'Reseller store will check the api for changes periodically. The default is 15 minutes (900 seconds).', 'reseller-store-advanced' ),
+		);,
 		$settings[] = array( 'name' => 'last_sync','label' => esc_html__( 'Last Api Sync', 'reseller-store-advanced' ), 'type' => 'time' );
 		$settings[] = array( 'name' => 'next_sync','label' => esc_html__( 'Next Api Sync', 'reseller-store-advanced' ), 'type' => 'time' );
-		$settings[] = array( 'name' => 'api_tld', 'label' => esc_html__( 'Api Url', 'reseller-store-advanced' ), 'type' => 'text',
-			'description' => esc_html__( 'Set url for internal testing.', 'reseller-store-advanced' ) );
+		$settings[] = array(
+		'name' => 'api_tld',
+		'label' => esc_html__( 'Api Url', 'reseller-store-advanced' ),
+		'type' => 'text',
+			'description' => esc_html__( 'Set url for internal testing.', 'reseller-store-advanced' ),
+		);,
 		return $settings;
 	}
 
@@ -246,12 +266,11 @@ final class Settings {
 				case 'select':
 					echo '<tr>';
 					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
-					echo '<td><select title="'. $setting['label'] .'" id="' . $setting['name'] . '" name="' . $setting['name'] . '" >';
+					echo '<td><select title="' . $setting['label'] . '" id="' . $setting['name'] . '" name="' . $setting['name'] . '" >';
 					foreach ( $setting['list'] as $item ) {
 						if ( $item === rstore_get_option( $setting['name'] ) ) {
 							echo "<option selected=\"selected\" value=\"$item\">$item</option>";
-						}
-						else {
+						} else {
 							echo "<option value=\"$item\">$item</option>";
 						}
 					}
@@ -321,13 +340,12 @@ final class Settings {
 
 			if ( empty( $val ) ) {
 				rstore_delete_option( $setting['name'] );
-			}
-			else {
+			} else {
 				rstore_update_option( $setting['name'], $val );
 			}
 		}
 
-		//force a rsync update
+		// force a rsync update
 		rstore_delete_option( 'next_sync' );
 
 		wp_send_json_success();

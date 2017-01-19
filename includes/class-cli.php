@@ -18,7 +18,6 @@ final class CLI extends \WP_CLI_Command {
 	 * ## OPTIONS
 	 *
 	 * ## EXAMPLES
-	 *
 	 */
 	public function bar( $args, $assoc_args ) {
 
