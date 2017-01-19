@@ -175,27 +175,27 @@ final class Settings {
 		'label' => esc_html__( 'Private Label Id', 'reseller-store-advanced' ),
 		'type' => 'number',
 		 	'description' => esc_html__( 'The private label id that you have set for your storefront.', 'reseller-store-advanced' ),
-		);,
+		);
 		$settings[] = array(
 		'name' => 'currency',
 		'label' => esc_html__( 'Currency', 'reseller-store-advanced' ),
 		'type' => 'select',
 		'list' => self::$currencies,
 			'description' => esc_html__( 'Set the currency to display on your storefront.', 'reseller-store-advanced' ),
-		);,
+		);
 		$settings[] = array(
 		'name' => 'api_market',
 		'label' => esc_html__( 'Override Api Market', 'reseller-store-advanced' ),
 		'type' => 'select',
 		'list' => self::$markets,
 			'description' => esc_html__( 'Override your default language selected in the wordpress setup.', 'reseller-store-advanced' ),
-		);,
+		);
 		$settings[] = array(
 		'name' => 'sync_ttl',
 		'label' => esc_html__( 'Api Sync TTL (seconds)', 'reseller-store-advanced' ),
 		'type' => 'number',
 		  'description' => esc_html__( 'Reseller store will check the api for changes periodically. The default is 15 minutes (900 seconds).', 'reseller-store-advanced' ),
-		);,
+		);
 		$settings[] = array( 'name' => 'last_sync','label' => esc_html__( 'Last Api Sync', 'reseller-store-advanced' ), 'type' => 'time' );
 		$settings[] = array( 'name' => 'next_sync','label' => esc_html__( 'Next Api Sync', 'reseller-store-advanced' ), 'type' => 'time' );
 		$settings[] = array(
@@ -203,7 +203,7 @@ final class Settings {
 		'label' => esc_html__( 'Api Url', 'reseller-store-advanced' ),
 		'type' => 'text',
 			'description' => esc_html__( 'Set url for internal testing.', 'reseller-store-advanced' ),
-		);,
+		);
 		return $settings;
 	}
 
