@@ -101,6 +101,14 @@ final class Settings {
 
 		wp_enqueue_script( 'rstore-advanced-settings', Plugin::assets_url( "js/advanced-settings{$suffix}.js" ), [ 'jquery' ], rstore()->version, true );
 
+		wp_enqueue_script( 'rstore-magnific-popup', Plugin::assets_url( "js/magnific-popup{$suffix}.js" ), [ 'jquery' ], rstore()->version, true );
+
+		wp_enqueue_script( 'rstore-clipboard', Plugin::assets_url( "js/clipboard.min.js" ), [ 'jquery' ], rstore()->version, true );
+
+		wp_enqueue_style( 'rstore-magnific-popup-css', Plugin::assets_url( "css/magnific-popup{$suffix}.css"), rstore()->version, true  );
+
+		wp_enqueue_style( 'rstore-advanced-settings-css', Plugin::assets_url( "css/advanced-settings{$suffix}.css"), rstore()->version, true  );
+
 	}
 
 	/**
@@ -171,37 +179,37 @@ final class Settings {
 
 		$settings = array();
 		$settings[] = array(
-		'name' => 'pl_id',
-		'label' => esc_html__( 'Private Label Id', 'reseller-store-advanced' ),
-		'type' => 'number',
+			'name' => 'pl_id',
+			'label' => esc_html__( 'Private Label Id', 'reseller-store-advanced' ),
+			'type' => 'number',
 		 	'description' => esc_html__( 'The private label id that you have set for your storefront.', 'reseller-store-advanced' ),
 		);
 		$settings[] = array(
-		'name' => 'currency',
-		'label' => esc_html__( 'Currency', 'reseller-store-advanced' ),
-		'type' => 'select',
-		'list' => self::$currencies,
+			'name' => 'currency',
+			'label' => esc_html__( 'Currency', 'reseller-store-advanced' ),
+			'type' => 'select',
+			'list' => self::$currencies,
 			'description' => esc_html__( 'Set the currency to display on your storefront.', 'reseller-store-advanced' ),
 		);
 		$settings[] = array(
-		'name' => 'api_market',
-		'label' => esc_html__( 'Override Api Market', 'reseller-store-advanced' ),
-		'type' => 'select',
-		'list' => self::$markets,
+			'name' => 'api_market',
+			'label' => esc_html__( 'Override Api Market', 'reseller-store-advanced' ),
+			'type' => 'select',
+			'list' => self::$markets,
 			'description' => esc_html__( 'Override your default language selected in the wordpress setup.', 'reseller-store-advanced' ),
 		);
 		$settings[] = array(
-		'name' => 'sync_ttl',
-		'label' => esc_html__( 'Api Sync TTL (seconds)', 'reseller-store-advanced' ),
-		'type' => 'number',
+			'name' => 'sync_ttl',
+			'label' => esc_html__( 'Api Sync TTL (seconds)', 'reseller-store-advanced' ),
+			'type' => 'number',
 		  'description' => esc_html__( 'Reseller store will check the api for changes periodically. The default is 15 minutes (900 seconds).', 'reseller-store-advanced' ),
 		);
 		$settings[] = array( 'name' => 'last_sync','label' => esc_html__( 'Last Api Sync', 'reseller-store-advanced' ), 'type' => 'time' );
 		$settings[] = array( 'name' => 'next_sync','label' => esc_html__( 'Next Api Sync', 'reseller-store-advanced' ), 'type' => 'time' );
 		$settings[] = array(
-		'name' => 'api_tld',
-		'label' => esc_html__( 'Api Url', 'reseller-store-advanced' ),
-		'type' => 'text',
+			'name' => 'api_tld',
+			'label' => esc_html__( 'Api Url', 'reseller-store-advanced' ),
+			'type' => 'text',
 			'description' => esc_html__( 'Set url for internal testing.', 'reseller-store-advanced' ),
 		);
 		return $settings;
@@ -290,6 +298,35 @@ final class Settings {
 				<img src="<?php echo esc_url( includes_url( 'images/spinner-2x.gif' ) ); ?>" class="rstore-spinner">
 			</p>
 			</form>
+		</div>
+
+		<?php
+
+		$this->export_button();
+
+	}
+
+	function export_button() {
+		?>
+			<div class="wrap">
+				<form id='rstore-settings-export'>
+				<?php wp_nonce_field( 'rstore_export', 'nonce' ); ?>
+					<input type="hidden" name="action" value="rstore_export">
+					<button type="submit" class="button link" ><?php esc_html_e( 'Export Posts to JSON', 'reseller-store-advanced' ); ?></button>
+				</form>
+
+				<div id="json-generator" class="json-generator mfp-hide mfp-with-anim">
+					<div class="json-content">
+						<div id="header">
+						</div>
+					</div>
+					<div class="container">
+					 <button id='clipboard' class="button button-primary" data-clipboard-action="copy" data-clipboard-target="#json-text"><?php esc_html_e( 'Copy to clipboard', 'reseller-store-advanced' ); ?></button>
+						<div id="json-content">
+							<p><textarea id="json-text"> </textarea></p>
+						</div>
+					</div>
+				</div>
 		</div>
 
 		<?php

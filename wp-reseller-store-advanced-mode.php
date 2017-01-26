@@ -79,6 +79,7 @@ final class Plugin {
 		} );
 
 		new Settings;
+		new Export;
 
 	}
 
