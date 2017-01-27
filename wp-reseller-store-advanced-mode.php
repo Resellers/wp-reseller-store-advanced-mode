@@ -63,18 +63,18 @@ final class Plugin {
 		/**
 		 * Register custom WP-CLI command
 		 */
-		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+		// if ( defined( 'WP_CLI' ) && WP_CLI ) {
 
-			\WP_CLI::add_command( 'foo-plugin', '\Foo\CLI' );
+			// \WP_CLI::add_command( 'foo-plugin', '\Foo\CLI' );
 
-		}
+		// }
 
 		/**
 		 * Load languages
 		 */
 		add_action( 'plugins_loaded', function() {
 
-			load_plugin_textdomain( 'foo-plugin', false, dirname( __FILE__ ) . '/languages' );
+			load_plugin_textdomain( 'reseller-store', false, dirname( $this->basename ) . '/languages' );
 
 		} );
 
