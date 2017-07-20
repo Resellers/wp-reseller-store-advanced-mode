@@ -15,7 +15,7 @@ final class Settings {
 	/**
 	 * Post type slug.
 	 *
-	 * @since NEXT
+	 * @since 0.3.3
 	 *
 	 * @var string
 	 */
@@ -24,7 +24,7 @@ final class Settings {
 	/**
 	 * Settings Page
 	 *
-	 * @since NEXT
+	 * @since 0.3.3
 	 *
 	 * @var string
 	 */
@@ -33,14 +33,14 @@ final class Settings {
 	/**
 	 * Array of Currencies.
 	 *
-	 * @since NEXT
+	 * @since 0.3.3
 	 */
 	static $currencies = [ 'default','USD','AED','ARS','AUD','BRL','CAD','CHF','CLP','CNY','COP','CZK','DKK','EGP','EUR','GBP','HKD','HUF','IDR','ILS','INR','JPY','KRW','MAD','MXN','MYR','NOK','NZD','PEN','PHP','PKR','PLN','RON','RUB','SAR','SEK','SGD','THB','TRY','TWD','UAH','UYU','VND','ZAR' ];
 
 	/**
 	 * Array of markests.
 	 *
-	 * @since NEXT
+	 * @since 0.3.3
 	 */
 	static $markets = [ 'default', 'da-DK', 'de-DE', 'el-GR', 'en-US', 'es-MX', 'fi-FI', 'fr-FR', 'hi-IN', 'id-ID', 'it-IT', 'ja-JP', 'ko-KR', 'mr-IN', 'nb-NO', 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sv-SE', 'ta-IN', 'th-TH', 'tr-TR', 'uk-UA', 'vi-VN', 'zh-CN', 'zh-TW' ];
 
@@ -48,7 +48,7 @@ final class Settings {
 	/**
 	 * Hold error object.
 	 *
-	 * @since NEXT
+	 * @since 0.3.3
 	 *
 	 * @var WP_Error
 	 */
@@ -57,7 +57,7 @@ final class Settings {
 	/**
 	 * Class constructor.
 	 *
-	 * @since NEXT
+	 * @since 0.3.3
 	 */
 	public function __construct() {
 
@@ -92,7 +92,7 @@ final class Settings {
 	 * Enqueue admin scripts.
 	 *
 	 * @action admin_enqueue_scripts
-	 * @since  NEXT
+	 * @since  0.3.3
 	 */
 	public function admin_enqueue_scripts() {
 
@@ -120,7 +120,7 @@ final class Settings {
 	 * Register the settings page.
 	 *
 	 * @action init
-	 * @since  NEXT
+	 * @since  0.3.3
 	 */
 	public function register() {
 
@@ -138,7 +138,7 @@ final class Settings {
 	 * Register the api tld filter
 	 *
 	 * @action init
-	 * @since  NEXT
+	 * @since  0.3.3
 	 */
 	public function api_tld_filter() {
 
@@ -149,7 +149,7 @@ final class Settings {
 	 * Register the api market filter
 	 *
 	 * @action init
-	 * @since  NEXT
+	 * @since  0.3.3
 	 */
 	public function api_market_filter() {
 
@@ -160,7 +160,7 @@ final class Settings {
 	 * Register the api currency filter
 	 *
 	 * @action init
-	 * @since  NEXT
+	 * @since  0.3.3
 	 */
 	public function api_currency_filter() {
 
@@ -171,7 +171,7 @@ final class Settings {
 	 * Register the rstore_sync_ttl_filter filter
 	 *
 	 * @action init
-	 * @since  NEXT
+	 * @since  0.3.3
 	 */
 	public function rstore_sync_ttl_filter() {
 
@@ -354,7 +354,7 @@ final class Settings {
 	 *
 	 * @action wp_ajax_rstore_advanced_save
 	 * @global wpdb $wpdb
-	 * @since  NEXT
+	 * @since  0.3.3
 	 *
 	 * @param int $pl_id (optional)
 	 */

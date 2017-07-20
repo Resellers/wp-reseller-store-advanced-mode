@@ -5,7 +5,7 @@ namespace Reseller_Store_Advanced;
 /**
  * Check if we are on a specific admin screen.
  *
- * @since NEXT
+ * @since 0.3.3
  *
  * @param  string $request_uri
  * @param  bool   $strict      (optional)
@@ -24,7 +24,7 @@ function rstore2_is_admin_uri( $request_uri, $strict = true ) {
 /**
  * Safe redirect to any admin page.
  *
- * @since NEXT
+ * @since 0.3.3
  *
  * @param string                   $endpoint (optional)
  * @param array                    $args (optional)

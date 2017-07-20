@@ -15,7 +15,7 @@ final class Export {
 	/**
 	 * Hold error object.
 	 *
-	 * @since NEXT
+	 * @since 0.3.3
 	 *
 	 * @var WP_Error
 	 */
@@ -24,7 +24,7 @@ final class Export {
 	/**
 	 * Class constructor.
 	 *
-	 * @since NEXT
+	 * @since 0.3.3
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_rstore_export', [ __CLASS__, 'export_posts' ] );
@@ -73,7 +73,7 @@ final class Export {
 	/**
 	 * Return a product meta value, or its global setting fallback.
 	 *
-	 * @since NEXT
+	 * @since 0.3.3
 	 *
 	 * @param  int    $post_id
 	 * @param  string $key

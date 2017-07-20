@@ -4,7 +4,7 @@ namespace Reseller_Store_Advanced;
 /**
  * Returns the plugin instance.
  *
- * @since NEXT
+ * @since 0.3.3
  *
  * @return Plugin
  */
@@ -17,7 +17,7 @@ function rstore() {
 /**
  * Add the plugin prefix to a string.
  *
- * @since NEXT
+ * @since 0.3.3
  *
  * @param  string $string
  * @param  bool   $use_dashes (optional)
@@ -35,7 +35,7 @@ function rstore_prefix( $string, $use_dashes = false ) {
 /**
  * Check if the plugin has been setup.
  *
- * @since NEXT
+ * @since 0.3.3
  *
  * @return bool  Returns `true` if a private label ID exists, otherwise `false`.
  */
@@ -48,7 +48,7 @@ function rstore_is_setup() {
 /**
  * Return vars needed for displaying `Add to cart` markup.
  *
- * @since NEXT
+ * @since 0.3.3
  *
  * @param  int|WP_Post|null $post
  *
@@ -71,7 +71,7 @@ function rstore_get_add_to_cart_vars( $post ) {
 /**
  * Return a plugin option.
  *
- * @since NEXT
+ * @since 0.3.3
  *
  * @param  string $key
  * @param  mixed  $default (optional)
@@ -87,7 +87,7 @@ function rstore_get_option( $key, $default = false ) {
 /**
  * Update a plugin option.
  *
- * @since NEXT
+ * @since 0.3.3
  *
  * @param  string $key
  * @param  mixed  $value
@@ -103,7 +103,7 @@ function rstore_update_option( $key, $value ) {
 /**
  * Delete a plugin option.
  *
- * @since NEXT
+ * @since 0.3.3
  *
  * @param  string $key
  *
@@ -118,7 +118,7 @@ function rstore_delete_option( $key ) {
 /**
  * Return a transient value, and optionally set it if it doesn't exist.
  *
- * @since NEXT
+ * @since 0.3.3
  *
  * @param  string       $name
  * @param  mixed        $default    (optional)
@@ -163,7 +163,7 @@ function rstore_get_transient( $name, $default = null, $callback = null, $expira
 /**
  * Set a transient value.
  *
- * @since NEXT
+ * @since 0.3.3
  *
  * @param  string $name
  * @param  mixed  $value
@@ -180,7 +180,7 @@ function rstore_set_transient( $name, $value, $expiration = 0 ) {
 /**
  * Delete a transient value.
  *
- * @since NEXT
+ * @since 0.3.3
  *
  * @param  string $name
  *
@@ -195,7 +195,7 @@ function rstore_delete_transient( $name ) {
 /**
  * Update post meta value(s).
  *
- * @since NEXT
+ * @since 0.3.3
  *
  * @param  int                 $post_id
  * @param  string|array|object $key
@@ -219,7 +219,7 @@ function rstore_update_post_meta( $post_id, $key, $value = '' ) {
 /**
  * Update post meta key/value pairs in bulk.
  *
- * @since NEXT
+ * @since 0.3.3
  *
  * @param  int          $post_id
  * @param  array|object $meta
@@ -243,7 +243,7 @@ function rstore_bulk_update_post_meta( $post_id, $meta ) {
 /**
  * Insert a value into an array at a specific index point.
  *
- * @since NEXT
+ * @since 0.3.3
  *
  * @param  array $array
  * @param  mixed $var

@@ -1,0 +1,37 @@
+sudo chmod 775 -R /var/www/html/wp-content/plugins
+
+HOST=hackday.cloud.phx3.gdg
+
+export HOST=wp-store.cloud.phx3.gdg && grunt && rsync --verbose --recursive --compress --delete-before --chmod=+rx --exclude node_modules --exclude .git --exclude tests . $HOST:/var/www/html/wp-content/plugins/wp-reseller-store-advanced-mode
+
+export HOST=wp-store.cloud.phx3.gdg && grunt && rsync --verbose --recursive --compress --delete-before --chmod=+rx --exclude node_modules --exclude .git --exclude tests . $HOST:/var/www/html/wp-content/plugins/reseller-store
+
+
+export HOST=wp-store.cloud.phx3.gdg && rsync --verbose --recursive --compress --exclude node_modules --exclude .git --exclude tests  $HOST:/var/www/html/wp-content/plugins/reseller-store/ ../wp-reseller-store/
+
+##rsync
+export HOST=wp-store.cloud.phx3.gdg && grunt && rsync --verbose --recursive --compress --delete-before --chmod=+rx --exclude node_modules --exclude .git . $HOST:/var/www/html/wp-content/plugins/reseller-store
+
+
+export USER_NAME=bxfocht
+sudo usermod -a -G apache $USER_NAME
+sudo chmod 775 -R /var/www/html/wp-content/plugins/reseller-store
+sudo chown -R apache:apache /var/www/html/wp-content/plugins/reseller-store
+
+wp user create bryan bfocht@godaddy.com --role=admin
+
+##HOST=hackday.cloud.phx3.gdg
+###rsync --verbose --recursive --compress $HOST:/var/www/html/wp-content/plugins/reseller-store ./deploy
+
+http://demo.nrgthemes.com/projects/themes/nrghost.zip
+
+http://demo.nrgthemes.com/projects/plugins/js_composer.zip
+
+http://demo.nrgthemes.com/projects/plugins/revslider.zip
+
+#####run this script to automatically install
+sudo su
+cd /var/www/html
+wp core install --url=$HOSTNAME --title="reseller store" --admin_user=bryan --admin_email=bxfocht@godaddy.com
+wp theme install primer --activate
+chown -R apache:apache /var/www/html/*

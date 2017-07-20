@@ -2,7 +2,7 @@
 /**
  * Plugin Name: GoDaddy Reseller Store Advanced Settings
  * Description: A boilerplate WordPress plugin by GoDaddy.
- * Version: 0.1.0
+ * Version: 0.3.3
  * Author: GoDaddy
  * Author URI: https://reseller.godaddy.com/
  * License: GPL-2.0
@@ -35,16 +35,16 @@ final class Plugin {
 	/**
 	 * Plugin version.
 	 *
-	 * @since NEXT
+	 * @since 0.3.3
 	 *
 	 * @var string
 	 */
-	const VERSION = '0.1.0';
+	const VERSION = '0.3.3';
 
 	/**
 	 * Plugin prefix.
 	 *
-	 * @since NEXT
+	 * @since 0.3.3
 	 *
 	 * @var string
 	 */
