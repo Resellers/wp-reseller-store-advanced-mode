@@ -1,17 +1,46 @@
 === GoDaddy Reseller Store Advanced Mode===
-Contributors:      godaddy
+Contributors:      bfocht
 Tags:              admin, posts, users
 Requires at least: 4.6
-Tested up to:      4.7
+Tested up to:      4.8
 Stable tag:        0.1.0
 License:           GPL-2.0
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-TODO
+This is the [Game Genie](https://en.wikipedia.org/wiki/Game_Genie) for your storefront if you use the Reseller Store plugin for your GoDaddy Reseller plan.
 
 == Description ==
 
-TODO
+**Note: This plugin requires PHP 5.4 or higher**
+
+With this plugin, you will get an Advanced Options menu that allows to tap into the filters in the Reseller Store plugin.
+
+Filters currently supported:
+`rstore_api_tld` 
+`rstore_api_currency`
+`rstore_api_market_id`
+`rstore_sync_ttl`
+
+
+
+Filters not supported _yet_:
+`rstore_api_max_retries`
+`rstore_api_request_args`
+`rstore_cookie_ttl`
+`rstore_product_args`
+`rstore_product_category_args`
+`rstore_product_tag_args`
+`rstore_setup_rcc`
+`rstore_sync_properties`
+`rstore_sync_retry_ttl`
+`rstore_sync_properties`
+
+`rstore_cart_widget_classes`
+`rstore_domain_search_widget_classes`
+`rstore_product_widget_classes`
+
+`widget_title`
+
 
 == Changelog ==
 
@@ -19,4 +48,4 @@ TODO
 
 * Initial release
 
-Props [@fjarrett](https://github.com/fjarrett), [@bfocht](https://github.com/bfocht)
+Props [@bfocht](https://github.com/bfocht)

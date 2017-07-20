@@ -35,7 +35,7 @@ final class Settings {
 	 *
 	 * @since NEXT
 	 */
-	static $currencies = [ 'USD','AED','ARS','AUD','BRL','CAD','CHF','CLP','CNY','COP','CZK','DKK','EGP','EUR','GBP','HKD','HUF','IDR','ILS','INR','JPY','KRW','MAD','MXN','MYR','NOK','NZD','PEN','PHP','PKR','PLN','RON','RUB','SAR','SEK','SGD','THB','TRY','TWD','UAH','UYU','VND','ZAR' ];
+	static $currencies = [ 'default','USD','AED','ARS','AUD','BRL','CAD','CHF','CLP','CNY','COP','CZK','DKK','EGP','EUR','GBP','HKD','HUF','IDR','ILS','INR','JPY','KRW','MAD','MXN','MYR','NOK','NZD','PEN','PHP','PKR','PLN','RON','RUB','SAR','SEK','SGD','THB','TRY','TWD','UAH','UYU','VND','ZAR' ];
 
 	/**
 	 * Array of markests.
@@ -79,6 +79,11 @@ final class Settings {
 		$api_market = rstore_get_option( 'api_market' );
 		if ( ! empty( $api_market ) &&  $api_market !== 'default' ) {
 			add_filter( 'rstore_api_market_id', [ $this, 'api_market_filter' ] );
+		}
+
+		$api_currency = rstore_get_option( 'api_currency' );
+		if ( ! empty( $api_currency ) &&  $api_currency !== 'default' ) {
+			add_filter( 'rstore_api_currency', [ $this, 'api_currency_filter' ] );
 		}
 
 	}
@@ -152,6 +157,17 @@ final class Settings {
 	}
 
 	/**
+	 * Register the api currency filter
+	 *
+	 * @action init
+	 * @since  NEXT
+	 */
+	public function api_currency_filter() {
+
+		return rstore_get_option( 'api_currency' );
+	}
+
+	/**
 	 * Register the rstore_sync_ttl_filter filter
 	 *
 	 * @action init
@@ -185,7 +201,7 @@ final class Settings {
 		 	'description' => esc_html__( 'The private label id that you have set for your storefront.', 'reseller-store-advanced' ),
 		);
 		$settings[] = array(
-			'name' => 'currency',
+			'name' => 'api_currency',
 			'label' => esc_html__( 'Currency', 'reseller-store-advanced' ),
 			'type' => 'select',
 			'list' => self::$currencies,
