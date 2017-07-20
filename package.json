@@ -5,10 +5,10 @@
   "version": "0.3.3",
   "author": "GoDaddy",
   "license": "GPL-2.0",
-  "repository": "godaddy/wp-reseller-store-advanced-mode",
+  "repository": "Resellers/wp-reseller-store-advanced-mode",
   "homepage": "https://wordpress.org/plugins/reseller-store-advanced-mode/",
   "bugs": {
-    "url": "https://github.com/godaddy/wp-reseller-store-advanced-mode/issues"
+    "url": "https://github.com/Resellers/wp-reseller-store-advanced-mode/issues"
   },
   "engines": {
     "node": ">= 7.5.0",

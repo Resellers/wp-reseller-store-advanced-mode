@@ -7,7 +7,7 @@ Stable tag:        0.1.0
 License:           GPL-2.0
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-This is the [Game Genie](https://en.wikipedia.org/wiki/Game_Genie) for your storefront if you use the Reseller Store plugin for your GoDaddy Reseller plan.
+This is the [Game Genie](https://en.wikipedia.org/wiki/Game_Genie) for the [Reseller Store plugin](https://github.com/godaddy/wp-reseller-store/).
 
 == Description ==
 
