@@ -27,7 +27,7 @@ final class Export {
 	 * @since NEXT
 	 */
 	public function __construct() {
-		add_action( 'wp_ajax_rstore_export', [  __CLASS__, 'export_posts'] );
+		add_action( 'wp_ajax_rstore_export', [ __CLASS__, 'export_posts' ] );
 	}
 
 
@@ -55,14 +55,17 @@ final class Export {
 		foreach ( $posts as $post_id ) {
 			$post = get_post( $post_id );
 			$title = $post->post_title;
-			$content = apply_filters('the_content', $post->post_content);
+			$content = apply_filters( 'the_content', $post->post_content );
 
 			$product = self::rstore_get_product_meta( $post_id, 'id' );
 
-			$products[$product] = array( 'title'=> $title, 'content' => $content);
+			$products[ $product ] = array(
+				'title' => $title,
+				'content' => $content,
+			);
 		}
 
-		wp_send_json($products);
+		wp_send_json( $products );
 
 	}
 

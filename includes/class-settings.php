@@ -108,11 +108,11 @@ final class Settings {
 
 		wp_enqueue_script( 'rstore-magnific-popup', Plugin::assets_url( "js/magnific-popup{$suffix}.js" ), [ 'jquery' ], rstore()->version, true );
 
-		wp_enqueue_script( 'rstore-clipboard', Plugin::assets_url( "js/clipboard.min.js" ), [ 'jquery' ], rstore()->version, true );
+		wp_enqueue_script( 'rstore-clipboard', Plugin::assets_url( 'js/clipboard.min.js' ), [ 'jquery' ], rstore()->version, true );
 
-		wp_enqueue_style( 'rstore-magnific-popup-css', Plugin::assets_url( "css/magnific-popup{$suffix}.css"), rstore()->version, true  );
+		wp_enqueue_style( 'rstore-magnific-popup-css', Plugin::assets_url( "css/magnific-popup{$suffix}.css" ), rstore()->version, true );
 
-		wp_enqueue_style( 'rstore-advanced-settings-css', Plugin::assets_url( "css/advanced-settings{$suffix}.css"), rstore()->version, true  );
+		wp_enqueue_style( 'rstore-advanced-settings-css', Plugin::assets_url( "css/advanced-settings{$suffix}.css" ), rstore()->version, true );
 
 	}
 
@@ -198,7 +198,7 @@ final class Settings {
 			'name' => 'pl_id',
 			'label' => esc_html__( 'Private Label Id', 'reseller-store-advanced' ),
 			'type' => 'number',
-		 	'description' => esc_html__( 'The private label id that you have set for your storefront.', 'reseller-store-advanced' ),
+			 'description' => esc_html__( 'The private label id that you have set for your storefront.', 'reseller-store-advanced' ),
 		);
 		$settings[] = array(
 			'name' => 'api_currency',
@@ -300,12 +300,12 @@ final class Settings {
 					}
 					echo  '</select>';
 				break;
-			}
+			}// End switch().
 			if ( array_key_exists( 'description', $setting ) ) {
 				echo '<p class="description" id="tagline-description">' . $setting['description'] . '</p></td>';
 			}
 			echo '</td></tr>';
-		}
+		}// End foreach().
 		?>
 			</tbody>
 			</table>

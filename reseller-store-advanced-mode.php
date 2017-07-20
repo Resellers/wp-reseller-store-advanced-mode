@@ -64,11 +64,8 @@ final class Plugin {
 		 * Register custom WP-CLI command
 		 */
 		// if ( defined( 'WP_CLI' ) && WP_CLI ) {
-
 			// \WP_CLI::add_command( 'foo-plugin', '\Foo\CLI' );
-
 		// }
-
 		/**
 		 * Load languages
 		 */
