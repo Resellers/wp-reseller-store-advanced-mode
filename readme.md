@@ -1,4 +1,4 @@
-# GoDaddy Reseller Store Advanced Mode#
+# GoDaddy Reseller Store Advanced Mode #
 **Contributors:** [bfocht](https://profiles.wordpress.org/bfocht)  
 **Tags:**              [admin](https://wordpress.org/plugins/tags/admin/), [posts](https://wordpress.org/plugins/tags/posts/), [users](https://wordpress.org/plugins/tags/users/)  
 **Requires at least:** 4.6  
@@ -18,30 +18,28 @@ This is the [Game Genie](https://en.wikipedia.org/wiki/Game_Genie) for your stor
 With this plugin, you will get an Advanced Options menu that allows to tap into the filters in the Reseller Store plugin.
 
 Filters currently supported:
-`rstore_api_tld` 
-`rstore_api_currency`
-`rstore_api_market_id`
-`rstore_sync_ttl`
+    `rstore_api_tld` 
+    `rstore_api_currency`
+    `rstore_api_market_id`
+    `rstore_sync_ttl`
 
 
 
 Filters not supported _yet_:
-`rstore_api_max_retries`
-`rstore_api_request_args`
-`rstore_cookie_ttl`
-`rstore_product_args`
-`rstore_product_category_args`
-`rstore_product_tag_args`
-`rstore_setup_rcc`
-`rstore_sync_properties`
-`rstore_sync_retry_ttl`
-`rstore_sync_properties`
-
-`rstore_cart_widget_classes`
-`rstore_domain_search_widget_classes`
-`rstore_product_widget_classes`
-
-`widget_title`
+    `rstore_api_max_retries`
+    `rstore_api_request_args`
+    `rstore_cookie_ttl`
+    `rstore_product_args`
+    `rstore_product_category_args`
+    `rstore_product_tag_args`
+    `rstore_setup_rcc`
+    `rstore_sync_properties`
+    `rstore_sync_retry_ttl`
+    `rstore_sync_properties`
+    `rstore_cart_widget_classes`
+    `rstore_domain_search_widget_classes`
+    `rstore_product_widget_classes`
+    `widget_title`
 
 
 ## Changelog ##
