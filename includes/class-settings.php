@@ -341,7 +341,7 @@ final class Settings {
 						}
 					}
 					echo  '</select>';
-				break;
+					break;
 			}// End switch().
 			if ( array_key_exists( 'description', $setting ) ) {
 				echo '<p class="description" id="tagline-description">' . $setting['description'] . '</p></td>';
