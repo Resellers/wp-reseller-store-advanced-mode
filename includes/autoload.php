@@ -43,14 +43,3 @@ spl_autoload_register( function( $resource ) {
 
 	}
 } );
-
-/**
- * Returns the plugin instance
- *
- * @return Plugin
- */
-function rstore_advanced() {
-
-	return Plugin::load();
-
-}

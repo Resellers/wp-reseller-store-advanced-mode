@@ -96,7 +96,7 @@ final class Settings {
 	 */
 	public function admin_enqueue_scripts() {
 
-		if ( ! rstore2_is_admin_uri( self::PAGE_SLUG ) ) {
+		if ( ! rstore_is_admin_uri( self::PAGE_SLUG ) ) {
 
 			return;
 
@@ -181,7 +181,7 @@ final class Settings {
 
 	function edit_settings() {
 
-		if ( ! rstore2_is_admin_uri( self::PAGE_SLUG, false ) ) {
+		if ( ! rstore_is_admin_uri( self::PAGE_SLUG, false ) ) {
 
 			return;
 
