@@ -92,8 +92,8 @@ final class Export {
 	 *
 	 * @since 0.3.3
 	 *
-	 * @param  int    $post_id					Post ID.
-	 * @param  string $key							Meta data key.
+	 * @param  int    $post_id          Post ID.
+	 * @param  string $key              Meta data key.
 	 * @param  mixed  $default          (optional).
 	 * @param  bool   $setting_fallback (optional).
 	 *

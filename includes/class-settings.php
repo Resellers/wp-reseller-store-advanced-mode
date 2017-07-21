@@ -48,7 +48,7 @@ final class Settings {
 	 *
 	 * @var array
 	 */
-	static $currencies = [ 'default','USD','AED','ARS','AUD','BRL','CAD','CHF','CLP','CNY','COP','CZK','DKK','EGP','EUR','GBP','HKD','HUF','IDR','ILS','INR','JPY','KRW','MAD','MXN','MYR','NOK','NZD','PEN','PHP','PKR','PLN','RON','RUB','SAR','SEK','SGD','THB','TRY','TWD','UAH','UYU','VND','ZAR' ];
+	static $currencies = [ 'default', 'USD', 'AED', 'ARS', 'AUD', 'BRL', 'CAD', 'CHF', 'CLP', 'CNY', 'COP', 'CZK', 'DKK', 'EGP', 'EUR', 'GBP', 'HKD', 'HUF', 'IDR', 'ILS', 'INR', 'JPY', 'KRW', 'MAD', 'MXN', 'MYR', 'NOK', 'NZD', 'PEN', 'PHP', 'PKR', 'PLN', 'RON', 'RUB', 'SAR', 'SEK', 'SGD', 'THB', 'TRY', 'TWD', 'UAH', 'UYU', 'VND', 'ZAR' ];
 
 	/**
 	 * Array of markests.
@@ -222,7 +222,7 @@ final class Settings {
 			'name' => 'pl_id',
 			'label' => esc_html__( 'Private Label Id', 'reseller-store-advanced' ),
 			'type' => 'number',
-			 'description' => esc_html__( 'The private label id that you have set for your storefront.', 'reseller-store-advanced' ),
+			'description' => esc_html__( 'The private label id that you have set for your storefront.', 'reseller-store-advanced' ),
 		);
 		$settings[] = array(
 			'name' => 'api_currency',
@@ -242,7 +242,7 @@ final class Settings {
 			'name' => 'sync_ttl',
 			'label' => esc_html__( 'Api Sync TTL (seconds)', 'reseller-store-advanced' ),
 			'type' => 'number',
-		  'description' => esc_html__( 'Reseller store will check the api for changes periodically. The default is 15 minutes (900 seconds).', 'reseller-store-advanced' ),
+			'description' => esc_html__( 'Reseller store will check the api for changes periodically. The default is 15 minutes (900 seconds).', 'reseller-store-advanced' ),
 		);
 		$settings[] = array(
 			'name' => 'last_sync',
@@ -296,7 +296,7 @@ final class Settings {
 
 
 		<div class="wrap">
-			<h1> <?php esc_html_e( 'Reseller Advanced Settings', 'reseller-store-advanced' ) ?> </h1>
+			<h1> <?php esc_html_e( 'Reseller Advanced Settings', 'reseller-store-advanced' ); ?> </h1>
 			<form id="rstore-settings-form" >
 			<table class="form-table">
 			<tbody>
@@ -312,18 +312,18 @@ final class Settings {
 					echo '<tr>';
 					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
 					echo '<td><input type="text" id="' . $setting['name'] . '" name="' . $setting['name'] . '" value="' . rstore_get_option( $setting['name'] ) . '" class="regular-text">';
-				break;
+					break;
 				case 'number':
 					echo '<tr>';
 					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
 					echo '<td><input type="number" id="' . $setting['name'] . '" name="' . $setting['name'] . '" value="' . rstore_get_option( $setting['name'] ) . '" class="regular-text">';
-				break;
+					break;
 				case 'time':
 					$sync_time = get_date_from_gmt( date( 'Y-m-d H:i:s', rstore_get_option( $setting['name'] ) ), get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) );
 					echo '<tr>';
 					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
 					echo '<td><label id="' . $setting['name'] . '" >' . $sync_time . '</label>';
-				break;
+					break;
 				case 'checkbox':
 					echo '<tr>';
 					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
@@ -428,12 +428,12 @@ final class Settings {
 		foreach ( $settings as $setting ) {
 
 			if ( 'time' === $setting['type'] ) {
-				 continue;
+				continue;
 			}
 
 			$val = filter_input( INPUT_POST, $setting['name'] );
 			if ( 'number' === $setting['type'] ) {
-				  $val = absint( $val );
+				$val = absint( $val );
 			}
 
 			if ( empty( $val ) ) {
