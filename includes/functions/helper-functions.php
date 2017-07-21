@@ -9,16 +9,15 @@
  * @since    1.0.0
  */
 
-
 namespace Reseller_Store_Advanced;
 
 /**
  * Check if we are on a specific admin screen.
  *
- * @since 0.3.3
+ * @since 0.2.0
  *
- * @param  string $request_uri
- * @param  bool   $strict      (optional)
+ * @param  string $request_uri Request URL to check.
+ * @param  bool   $strict      (optional) strict check.
  *
  * @return bool  Returns `true` if the current admin URL contains the specified URI, otherwise `false`.
  */

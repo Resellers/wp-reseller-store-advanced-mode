@@ -1,4 +1,15 @@
 <?php
+/**
+ * GoDaddy Reseller Store Export class.
+ *
+ * Formats custom post to a json.
+ *
+ * @class    Reseller_Store_Advanced/Export
+ * @package  Reseller_Store_Advanced/Plugin
+ * @category Class
+ * @author   GoDaddy
+ * @since    1.0.0
+ */
 
 namespace Reseller_Store_Advanced;
 
@@ -30,7 +41,13 @@ final class Export {
 		add_action( 'wp_ajax_rstore_export', [ __CLASS__, 'export_posts' ] );
 	}
 
-
+	/**
+	 * Return custom post as a json
+	 *
+	 * @since 0.2.0
+	 *
+	 * @return string
+	 */
 	function export_posts() {
 		$nonce = filter_input( INPUT_POST, 'nonce' );
 
@@ -75,10 +92,10 @@ final class Export {
 	 *
 	 * @since 0.3.3
 	 *
-	 * @param  int    $post_id
-	 * @param  string $key
-	 * @param  mixed  $default          (optional)
-	 * @param  bool   $setting_fallback (optional)
+	 * @param  int    $post_id					Post ID.
+	 * @param  string $key							Meta data key.
+	 * @param  mixed  $default          (optional).
+	 * @param  bool   $setting_fallback (optional).
 	 *
 	 * @return mixed
 	 */

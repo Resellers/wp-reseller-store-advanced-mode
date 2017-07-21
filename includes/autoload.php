@@ -1,4 +1,12 @@
 <?php
+/**
+ * GoDaddy Reseller Store Autoloader class.
+ *
+ * @package  Reseller_Store_Advanced/Plugin
+ * @category Class
+ * @author   GoDaddy
+ * @since    1.0.0
+ */
 
 namespace Reseller_Store_Advanced;
 

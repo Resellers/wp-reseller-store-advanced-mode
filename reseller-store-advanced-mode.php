@@ -60,15 +60,6 @@ final class Plugin {
 		$this->base_dir   = plugin_dir_path( __FILE__ );
 		$this->assets_url = plugin_dir_url( __FILE__ ) . 'assets/';
 
-		/**
-		 * Register custom WP-CLI command
-		 */
-		// if ( defined( 'WP_CLI' ) && WP_CLI ) {
-			// \WP_CLI::add_command( 'foo-plugin', '\Foo\CLI' );
-		// }
-		/**
-		 * Load languages
-		 */
 		add_action( 'plugins_loaded', function() {
 
 			load_plugin_textdomain( 'reseller-store', false, dirname( $this->basename ) . '/languages' );

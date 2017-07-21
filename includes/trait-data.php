@@ -1,4 +1,15 @@
 <?php
+/**
+ * GoDaddy Reseller Store Data.
+ *
+ * Reseller store product data trait.
+ *
+ * @trait    Reseller_Store_Advanced/Data
+ * @package  Reseller_Store_Advanced/Plugin
+ * @category trait
+ * @author   GoDaddy
+ * @since    1.0.0
+ */
 
 namespace Reseller_Store_Advanced;
 
@@ -11,27 +22,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 trait Data {
 
 	/**
-	 * Data object
+	 * Data object.
+	 *
+	 * @since 0.2.0
 	 *
 	 * @var object|bool
 	 */
 	protected $data = false;
 
 	/**
-	 * Prefix for filter tags
+	 * Magic data getter.
 	 *
-	 * @var string
-	 */
-	protected $filter_prefix = '';
-
-	/**
-	 * Magic data getter
+	 * @since 0.2.0
 	 *
-	 * Filters are automatically applied to values being
-	 * fetched directly. Grouped values are returned
-	 * unfiltered.
-	 *
-	 * @param  string $key
+	 * @param string $key Object name to get.
 	 *
 	 * @return mixed
 	 */
@@ -39,21 +43,21 @@ trait Data {
 
 		if ( 'data' === $key ) {
 
-			return $this->data; // Unfiltered
+			return $this->data;
 
 		}
 
-		$value = isset( $this->data->{$key} ) ? $this->data->{$key} : false;
-
-		return $this->apply_filters( $key, $value );
+		return isset( $this->data->{$key} ) ? $this->data->{$key} : false;
 
 	}
 
 	/**
-	 * Magic data setter
+	 * Magic data setter.
 	 *
-	 * @param  string $key
-	 * @param  mixed  $value
+	 * @since 0.2.0
+	 *
+	 * @param string $key   Object name to set.
+	 * @param mixed  $value Object value to set.
 	 *
 	 * @return mixed
 	 */
@@ -66,30 +70,6 @@ trait Data {
 		}
 
 		$this->data->{$key} = $value;
-
-	}
-
-	/**
-	 * Adds prefix to a filter tag
-	 *
-	 * @param  string $key
-	 * @param  mixed  $value
-	 *
-	 * @return mixed
-	 */
-	private function apply_filters( $key, $value ) {
-
-		$prefix = ( $this->filter_prefix ) ? $prefix : strtolower( str_replace( '\\', '_', __CLASS__ ) );
-		$tag    = ( $prefix !== $key ) ? sprintf( '%s_%s', $prefix, $key ) : $key;
-
-		/**
-		 * Filter arbitrary data being fetched directly
-		 *
-		 * @since 1.0.0
-		 *
-		 * @var mixed
-		 */
-		return apply_filters( $tag, $value );
 
 	}
 

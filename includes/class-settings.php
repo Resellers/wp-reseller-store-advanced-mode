@@ -1,4 +1,15 @@
 <?php
+/**
+ * GoDaddy Reseller Store Settings class.
+ *
+ * Manage custom filters for the reseller store plubin
+ *
+ * @class    Reseller_Store_Advanced/Settings
+ * @package  Reseller_Store_Advanced/Plugin
+ * @category Class
+ * @author   GoDaddy
+ * @since    1.0.0
+ */
 
 namespace Reseller_Store_Advanced;
 
@@ -34,6 +45,8 @@ final class Settings {
 	 * Array of Currencies.
 	 *
 	 * @since 0.3.3
+	 *
+	 * @var array
 	 */
 	static $currencies = [ 'default','USD','AED','ARS','AUD','BRL','CAD','CHF','CLP','CNY','COP','CZK','DKK','EGP','EUR','GBP','HKD','HUF','IDR','ILS','INR','JPY','KRW','MAD','MXN','MYR','NOK','NZD','PEN','PHP','PKR','PLN','RON','RUB','SAR','SEK','SGD','THB','TRY','TWD','UAH','UYU','VND','ZAR' ];
 
@@ -41,6 +54,8 @@ final class Settings {
 	 * Array of markests.
 	 *
 	 * @since 0.3.3
+	 *
+	 * @var array
 	 */
 	static $markets = [ 'default', 'da-DK', 'de-DE', 'el-GR', 'en-US', 'es-MX', 'fi-FI', 'fr-FR', 'hi-IN', 'id-ID', 'it-IT', 'ja-JP', 'ko-KR', 'mr-IN', 'nb-NO', 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sv-SE', 'ta-IN', 'th-TH', 'tr-TR', 'uk-UA', 'vi-VN', 'zh-CN', 'zh-TW' ];
 
@@ -77,12 +92,12 @@ final class Settings {
 		}
 
 		$api_market = rstore_get_option( 'api_market' );
-		if ( ! empty( $api_market ) &&  $api_market !== 'default' ) {
+		if ( ! empty( $api_market ) && 'default' !== $api_market ) {
 			add_filter( 'rstore_api_market_id', [ $this, 'api_market_filter' ] );
 		}
 
 		$api_currency = rstore_get_option( 'api_currency' );
-		if ( ! empty( $api_currency ) &&  $api_currency !== 'default' ) {
+		if ( ! empty( $api_currency ) && 'default' !== $api_currency ) {
 			add_filter( 'rstore_api_currency', [ $this, 'api_currency_filter' ] );
 		}
 
@@ -178,7 +193,11 @@ final class Settings {
 		return rstore_get_option( 'rstore_sync_ttl' );
 	}
 
-
+	/**
+	 * Edit settings
+	 *
+	 * @since  0.3.3
+	 */
 	function edit_settings() {
 
 		if ( ! rstore_is_admin_uri( self::PAGE_SLUG, false ) ) {
@@ -191,6 +210,11 @@ final class Settings {
 
 	}
 
+	/**
+	 * Build settings array
+	 *
+	 * @since  0.3.3
+	 */
 	static function reseller_settings() {
 
 		$settings = array();
@@ -220,8 +244,16 @@ final class Settings {
 			'type' => 'number',
 		  'description' => esc_html__( 'Reseller store will check the api for changes periodically. The default is 15 minutes (900 seconds).', 'reseller-store-advanced' ),
 		);
-		$settings[] = array( 'name' => 'last_sync','label' => esc_html__( 'Last Api Sync', 'reseller-store-advanced' ), 'type' => 'time' );
-		$settings[] = array( 'name' => 'next_sync','label' => esc_html__( 'Next Api Sync', 'reseller-store-advanced' ), 'type' => 'time' );
+		$settings[] = array(
+			'name' => 'last_sync',
+			'label' => esc_html__( 'Last Api Sync', 'reseller-store-advanced' ),
+			'type' => 'time',
+		);
+		$settings[] = array(
+			'name' => 'next_sync',
+			'label' => esc_html__( 'Next Api Sync', 'reseller-store-advanced' ),
+			'type' => 'time',
+		);
 		$settings[] = array(
 			'name' => 'api_tld',
 			'label' => esc_html__( 'Api Url', 'reseller-store-advanced' ),
@@ -231,6 +263,11 @@ final class Settings {
 		return $settings;
 	}
 
+	/**
+	 * Register settings
+	 *
+	 * @since  0.3.3
+	 */
 	function reseller_register_settings() {
 		$settings = self::reseller_settings();
 		foreach ( $settings as $setting ) {
@@ -238,6 +275,11 @@ final class Settings {
 		}
 	}
 
+	/**
+	 * Admin settings ui
+	 *
+	 * @since  0.3.3
+	 */
 	function settings_output() {
 
 		$settings = self::reseller_settings();
@@ -292,7 +334,7 @@ final class Settings {
 					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
 					echo '<td><select title="' . $setting['label'] . '" id="' . $setting['name'] . '" name="' . $setting['name'] . '" >';
 					foreach ( $setting['list'] as $item ) {
-						if ( $item === rstore_get_option( $setting['name'] ) ) {
+						if ( rstore_get_option( $setting['name'] === $item ) ) {
 							echo "<option selected=\"selected\" value=\"$item\">$item</option>";
 						} else {
 							echo "<option value=\"$item\">$item</option>";
@@ -322,6 +364,11 @@ final class Settings {
 
 	}
 
+	/**
+	 * Generate export buttin
+	 *
+	 * @since  0.3.3
+	 */
 	function export_button() {
 		?>
 			<div class="wrap">
@@ -355,8 +402,6 @@ final class Settings {
 	 * @action wp_ajax_rstore_advanced_save
 	 * @global wpdb $wpdb
 	 * @since  0.3.3
-	 *
-	 * @param int $pl_id (optional)
 	 */
 	public static function save() {
 
@@ -382,12 +427,12 @@ final class Settings {
 		$settings = self::reseller_settings();
 		foreach ( $settings as $setting ) {
 
-			if ( $setting['type'] === 'time' ) {
+			if ( 'time' === $setting['type'] ) {
 				 continue;
 			}
 
 			$val = filter_input( INPUT_POST, $setting['name'] );
-			if ( $setting['type'] === 'number' ) {
+			if ( 'number' === $setting['type'] ) {
 				  $val = absint( $val );
 			}
 
@@ -398,11 +443,8 @@ final class Settings {
 			}
 		}
 
-		// force a rsync update
-		rstore_delete_option( 'next_sync' );
+		rstore_delete_option( 'next_sync' ); // force a rsync update.
 
 		wp_send_json_success();
 	}
-
-
 }
