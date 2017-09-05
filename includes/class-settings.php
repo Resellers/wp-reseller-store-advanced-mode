@@ -84,6 +84,12 @@ final class Settings {
 		$api_tld = rstore_get_option( 'api_tld' );
 		if ( ! empty( $api_tld ) ) {
 			add_filter( 'rstore_api_tld', [ $this, 'api_tld_filter' ] );
+			add_filter( 'rstore_domain_html', [ $this, 'rstore_domain_html_filter' ] );
+		}
+
+		$setup_rcc = rstore_get_option( 'setup_rcc' );
+		if ( ! empty( $setup_rcc ) ) {
+			add_filter( 'rstore_setup_rcc', [ $this, 'setup_rcc_filter' ] );
 		}
 
 		$rstore_sync_ttl = rstore_get_option( 'rstore_sync_ttl' );
@@ -158,6 +164,31 @@ final class Settings {
 	public function api_tld_filter() {
 
 		return rstore_get_option( 'api_tld' );
+	}
+
+	/**
+	 * Register the rstore domain html filter
+	 *
+	 * @action init
+	 * @since  0.3.3
+	 *
+	 * @param array $html     Html for domain search.
+	 */
+	public function rstore_domain_html_filter( $html ) {
+		$pattern = '/(<div.)(.*)(><\/div>)/';
+		$replacement = '${1} ${2} data-base-url="' . rstore_get_option( 'api_tld' ) . '"" ${3}';
+		return preg_replace( $pattern, $replacement, $html );
+	}
+
+	/**
+	 * Register the setup rcc url filter
+	 *
+	 * @action init
+	 * @since  NEXT
+	 */
+	public function setup_rcc_filter() {
+
+		return rstore_get_option( 'setup_rcc' );
 	}
 
 	/**
@@ -257,6 +288,12 @@ final class Settings {
 		$settings[] = array(
 			'name' => 'api_tld',
 			'label' => esc_html__( 'Api Url', 'reseller-store-advanced' ),
+			'type' => 'text',
+			'description' => esc_html__( 'Set url for internal testing.', 'reseller-store-advanced' ),
+		);
+		$settings[] = array(
+			'name' => 'setup_rcc',
+			'label' => esc_html__( 'RCC Url', 'reseller-store-advanced' ),
 			'type' => 'text',
 			'description' => esc_html__( 'Set url for internal testing.', 'reseller-store-advanced' ),
 		);
