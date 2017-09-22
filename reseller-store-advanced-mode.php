@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: GoDaddy Reseller Store Advanced Settings
- * Description: A boilerplate WordPress plugin by GoDaddy.
+ * Description: Advanced debug settings for the reseller storefront plugin
  * Version: 1.0.0
  * Author: GoDaddy
  * Author URI: https://reseller.godaddy.com/
@@ -62,7 +62,7 @@ final class Plugin {
 
 		add_action( 'plugins_loaded', function() {
 
-			load_plugin_textdomain( 'reseller-store', false, dirname( $this->basename ) . '/languages' );
+			load_plugin_textdomain( 'reseller-store-advanced', false, dirname( $this->basename ) . '/languages' );
 
 		} );
 

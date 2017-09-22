@@ -42,6 +42,15 @@ final class Settings {
 	const PAGE_SLUG = 'edit.php?post_type=reseller_product';
 
 	/**
+	 * Setup Page
+	 *
+	 * @since 0.3.3
+	 *
+	 * @var string
+	 */
+	const PAGE_SLUG_SETUP = 'admin.php?page=reseller_product_settings';
+
+	/**
 	 * Array of Currencies.
 	 *
 	 * @since 0.3.3
@@ -117,7 +126,8 @@ final class Settings {
 	 */
 	public function admin_enqueue_scripts() {
 
-		if ( ! rstore_is_admin_uri( self::PAGE_SLUG ) ) {
+		if ( ! ( rstore_is_admin_uri( self::PAGE_SLUG, false ) ||
+			 rstore_is_admin_uri( self::PAGE_SLUG_SETUP, false ) ) ) {
 
 			return;
 
@@ -147,6 +157,14 @@ final class Settings {
 
 		add_submenu_page(
 			self::PAGE_SLUG,
+			esc_html__( 'Reseller Store Advanced Options', 'reseller-store-advanced' ),
+			esc_html__( 'Advanced Options', 'reseller-store-advanced' ),
+			'manage_options',
+			self::SLUG . '_settings',
+		[ $this, 'edit_settings' ] );
+
+		add_submenu_page(
+			'reseller-store-setup',
 			esc_html__( 'Reseller Store Advanced Options', 'reseller-store-advanced' ),
 			esc_html__( 'Advanced Options', 'reseller-store-advanced' ),
 			'manage_options',
@@ -231,7 +249,8 @@ final class Settings {
 	 */
 	function edit_settings() {
 
-		if ( ! rstore_is_admin_uri( self::PAGE_SLUG, false ) ) {
+		if ( ! ( rstore_is_admin_uri( self::PAGE_SLUG, false ) ||
+			 rstore_is_admin_uri( self::PAGE_SLUG_SETUP, false ) ) ) {
 
 			return;
 

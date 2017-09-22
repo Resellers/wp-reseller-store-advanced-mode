@@ -23,10 +23,11 @@ namespace Reseller_Store_Advanced;
  */
 function rstore_is_admin_uri( $request_uri, $strict = true ) {
 
-	$strpos = strpos( basename( filter_input( INPUT_SERVER, 'REQUEST_URI' ) ), $request_uri );
-	$result = ( $strict ) ? ( 0 === $strpos ) : ( false !== $strpos );
+  $current = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : null; // input var ok.
+  $strpos  = strpos( basename( $current ), $request_uri );
+  $result  = ( $strict ) ? ( 0 === $strpos ) : ( false !== $strpos );
 
-	return ( is_admin() && $result );
+  return ( is_admin() && $result );
 
 }
 

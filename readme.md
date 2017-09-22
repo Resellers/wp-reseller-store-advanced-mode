@@ -22,8 +22,7 @@ Filters currently supported:
     `rstore_api_currency`
     `rstore_api_market_id`
     `rstore_sync_ttl`
-
-
+    `rstore_domain_html_filter`
 
 Filters not supported _yet_:
     `rstore_api_max_retries`
