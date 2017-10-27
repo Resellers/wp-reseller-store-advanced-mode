@@ -17,14 +17,11 @@
 		spinner.css( 'visibility', 'visible' );
 
 		$.post( ajaxurl, $this.serialize(), function( response ) {
-			console.dir(response);
 			submit.prop( 'disabled', false );
 			spinner.css( 'visibility', 'hidden' );
 			if ( response.success ) {
 				return false;
 			}
-
-			window.console.log( response );
 
 			window.alert( response.data );
 
@@ -39,7 +36,6 @@
 
 		$.post( ajaxurl, $this.serialize(), function( response ) {
 			if ( response ) {
-				console.log(response);
 				$('#json-text').text(JSON.stringify(response));
 				$.magnificPopup.open({
       		mainClass: 'mfp-zoom-in',

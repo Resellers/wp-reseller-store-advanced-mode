@@ -106,15 +106,19 @@ final class Settings {
 			add_filter( 'rstore_sync_ttl', [ $this, 'rstore_sync_ttl_filter' ] );
 		}
 
-		$api_market = rstore_get_option( 'api_market' );
-		if ( ! empty( $api_market ) && 'default' !== $api_market ) {
-			add_filter( 'rstore_api_market_id', [ $this, 'api_market_filter' ] );
-		}
+		add_filter( 'rstore_api_query_args', [ $this, 'rstore_api_query_args_filter' ] );
 
-		$api_currency = rstore_get_option( 'api_currency' );
-		if ( ! empty( $api_currency ) && 'default' !== $api_currency ) {
-			add_filter( 'rstore_api_currency', [ $this, 'api_currency_filter' ] );
-		}
+		add_action(
+			'add_meta_boxes', function () {
+				add_meta_box(
+					'debug-' . self::SLUG, 'Debug Info', function () {
+						global $post;
+						echo var_dump( get_post_meta( $post->ID ) );
+
+					},  self::SLUG, 'advanced', 'low'
+				);
+			}
+		);
 
 	}
 
@@ -161,7 +165,8 @@ final class Settings {
 			esc_html__( 'Advanced Options', 'reseller-store-advanced' ),
 			'manage_options',
 			self::SLUG . '_settings',
-		[ $this, 'edit_settings' ] );
+			[ $this, 'edit_settings' ]
+		);
 
 		add_submenu_page(
 			'reseller-store-setup',
@@ -169,7 +174,8 @@ final class Settings {
 			esc_html__( 'Advanced Options', 'reseller-store-advanced' ),
 			'manage_options',
 			self::SLUG . '_settings',
-		[ $this, 'edit_settings' ] );
+			[ $this, 'edit_settings' ]
+		);
 
 	}
 
@@ -193,8 +199,8 @@ final class Settings {
 	 * @param array $html     Html for domain search.
 	 */
 	public function rstore_domain_html_filter( $html ) {
-		$pattern = '/(<div.)(.*)(><\/div>)/';
-		$replacement = '${1} ${2} data-base-url="' . rstore_get_option( 'api_tld' ) . '"" ${3}';
+		$pattern = '/(<div.)(.*)(>.*<\/div>)/';
+		$replacement = '${1} ${2} data-base_url="' . rstore_get_option( 'api_tld' ) . '"" ${3}';
 		return preg_replace( $pattern, $replacement, $html );
 	}
 
@@ -202,7 +208,7 @@ final class Settings {
 	 * Register the setup rcc url filter
 	 *
 	 * @action init
-	 * @since  NEXT
+	 * @since  1.1.0
 	 */
 	public function setup_rcc_filter() {
 
@@ -210,25 +216,28 @@ final class Settings {
 	}
 
 	/**
-	 * Register the api market filter
+	 * Register the api request args
 	 *
 	 * @action init
 	 * @since  0.3.3
-	 */
-	public function api_market_filter() {
-
-		return rstore_get_option( 'api_market' );
-	}
-
-	/**
-	 * Register the api currency filter
 	 *
-	 * @action init
-	 * @since  0.3.3
+	 * @param array $args     Query string args for api url.
 	 */
-	public function api_currency_filter() {
+	public function rstore_api_query_args_filter( $args ) {
 
-		return rstore_get_option( 'api_currency' );
+		$market = rstore_get_option( 'api_market' );
+		$currency = rstore_get_option( 'api_currency' );
+
+		if ( ! empty( $market ) && 'default' !== $market ) {
+			$args['marketId'] = $market;
+		}
+
+		if ( ! empty( $currency ) && 'default' !== $currency ) {
+			$args['currencyType'] = $currency;
+		}
+
+		return $args;
+
 	}
 
 	/**
@@ -387,10 +396,11 @@ final class Settings {
 					break;
 				case 'select':
 					echo '<tr>';
+
 					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
 					echo '<td><select title="' . $setting['label'] . '" id="' . $setting['name'] . '" name="' . $setting['name'] . '" >';
 					foreach ( $setting['list'] as $item ) {
-						if ( rstore_get_option( $setting['name'] === $item ) ) {
+						if ( rstore_get_option( $setting['name'] ) === $item ) {
 							echo "<option selected=\"selected\" value=\"$item\">$item</option>";
 						} else {
 							echo "<option value=\"$item\">$item</option>";
@@ -416,12 +426,36 @@ final class Settings {
 
 		<?php
 
+		$this->import_button();
+
 		$this->export_button();
 
 	}
 
 	/**
-	 * Generate export buttin
+	 * Generate import button
+	 *
+	 * @since  0.3.3
+	 */
+	function import_button() {
+
+		$url = sprintf(
+			'%s?page=reseller-store-setup&nonce=%s&rstore_plid=%s',
+			admin_url( 'admin.php' ),
+			wp_create_nonce( rstore_prefix( 'install-' . get_current_user_id() ) ),
+			rstore_get_option( 'pl_id' )
+		);
+
+		echo sprintf(
+			'<div class="wrap rstore-settings-import"><a class="button" href="%s">%s</a></div>',
+			$url,
+			esc_html( 'Import products', 'reseller-store-advanced' )
+		);
+
+	}
+
+	/**
+	 * Generate export button
 	 *
 	 * @since  0.3.3
 	 */
@@ -431,7 +465,7 @@ final class Settings {
 				<form id='rstore-settings-export'>
 				<?php wp_nonce_field( 'rstore_export', 'nonce' ); ?>
 					<input type="hidden" name="action" value="rstore_export">
-					<button type="submit" class="button link" ><?php esc_html_e( 'Export Posts to JSON', 'reseller-store-advanced' ); ?></button>
+					<button type="submit" class="button link" ><?php esc_html_e( 'Export Products', 'reseller-store-advanced' ); ?></button>
 				</form>
 
 				<div id="json-generator" class="json-generator mfp-hide mfp-with-anim">

@@ -1,3 +1,4 @@
 node_modules
 tests/codeception/_output/*
 .DS_Store
+.idea/
