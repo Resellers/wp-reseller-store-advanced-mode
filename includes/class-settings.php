@@ -33,7 +33,7 @@ final class Settings {
 	const SLUG = 'reseller_product';
 
 	/**
-	 * Settings Page
+	 * Custom Post Type Page
 	 *
 	 * @since 0.3.3
 	 *
@@ -41,14 +41,15 @@ final class Settings {
 	 */
 	const PAGE_SLUG = 'edit.php?post_type=reseller_product';
 
+
 	/**
-	 * Setup Page
+	 * Settings Page
 	 *
 	 * @since 0.3.3
 	 *
 	 * @var string
 	 */
-	const PAGE_SLUG_SETUP = 'admin.php?page=reseller_product_settings';
+	const SETTINGS_PAGE_SLUG = 'admin.php?page=reseller-store-settings';
 
 	/**
 	 * Array of Currencies.
@@ -68,16 +69,6 @@ final class Settings {
 	 */
 	static $markets = [ 'default', 'da-DK', 'de-DE', 'el-GR', 'en-US', 'es-MX', 'fi-FI', 'fr-FR', 'hi-IN', 'id-ID', 'it-IT', 'ja-JP', 'ko-KR', 'mr-IN', 'nb-NO', 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sv-SE', 'ta-IN', 'th-TH', 'tr-TR', 'uk-UA', 'vi-VN', 'zh-CN', 'zh-TW' ];
 
-
-	/**
-	 * Hold error object.
-	 *
-	 * @since 0.3.3
-	 *
-	 * @var WP_Error
-	 */
-	private $error;
-
 	/**
 	 * Class constructor.
 	 *
@@ -85,7 +76,7 @@ final class Settings {
 	 */
 	public function __construct() {
 
-		add_action( 'admin_enqueue_scripts',  [ $this, 'admin_enqueue_scripts' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
 		add_action( 'admin_init', [ $this, 'reseller_register_settings' ] );
 		add_action( 'admin_menu', [ $this, 'register' ] );
 		add_action( 'wp_ajax_rstore_advanced_save', [ __CLASS__, 'save' ] );
@@ -115,7 +106,7 @@ final class Settings {
 						global $post;
 						echo var_dump( get_post_meta( $post->ID ) );
 
-					},  self::SLUG, 'advanced', 'low'
+					}, self::SLUG, 'advanced', 'low'
 				);
 			}
 		);
@@ -131,7 +122,7 @@ final class Settings {
 	public function admin_enqueue_scripts() {
 
 		if ( ! ( rstore_is_admin_uri( self::PAGE_SLUG, false ) ||
-			 rstore_is_admin_uri( self::PAGE_SLUG_SETUP, false ) ) ) {
+			rstore_is_admin_uri( self::SETTINGS_PAGE_SLUG, false ) ) ) {
 
 			return;
 
@@ -164,16 +155,7 @@ final class Settings {
 			esc_html__( 'Reseller Store Advanced Options', 'reseller-store-advanced' ),
 			esc_html__( 'Advanced Options', 'reseller-store-advanced' ),
 			'manage_options',
-			self::SLUG . '_settings',
-			[ $this, 'edit_settings' ]
-		);
-
-		add_submenu_page(
-			'reseller-store-setup',
-			esc_html__( 'Reseller Store Advanced Options', 'reseller-store-advanced' ),
-			esc_html__( 'Advanced Options', 'reseller-store-advanced' ),
-			'manage_options',
-			self::SLUG . '_settings',
+			'reseller-store-settings',
 			[ $this, 'edit_settings' ]
 		);
 
@@ -196,10 +178,11 @@ final class Settings {
 	 * @action init
 	 * @since  0.3.3
 	 *
-	 * @param array $html     Html for domain search.
+	 * @param array $html Html for domain search.
+	 * @return null|string|string[]
 	 */
 	public function rstore_domain_html_filter( $html ) {
-		$pattern = '/(<div.)(.*)(>.*<\/div>)/';
+		$pattern     = '/(<div.)(.*)(>.*<\/div>)/';
 		$replacement = '${1} ${2} data-base_url="' . rstore_get_option( 'api_tld' ) . '"" ${3}';
 		return preg_replace( $pattern, $replacement, $html );
 	}
@@ -221,11 +204,12 @@ final class Settings {
 	 * @action init
 	 * @since  0.3.3
 	 *
-	 * @param array $args     Query string args for api url.
+	 * @param array $args Query string args for api url.
+	 * @return array
 	 */
 	public function rstore_api_query_args_filter( $args ) {
 
-		$market = rstore_get_option( 'api_market' );
+		$market   = rstore_get_option( 'api_market' );
 		$currency = rstore_get_option( 'api_currency' );
 
 		if ( ! empty( $market ) && 'default' !== $market ) {
@@ -259,7 +243,7 @@ final class Settings {
 	function edit_settings() {
 
 		if ( ! ( rstore_is_admin_uri( self::PAGE_SLUG, false ) ||
-			 rstore_is_admin_uri( self::PAGE_SLUG_SETUP, false ) ) ) {
+			rstore_is_admin_uri( self::SETTINGS_PAGE_SLUG, false ) ) ) {
 
 			return;
 
@@ -276,53 +260,53 @@ final class Settings {
 	 */
 	static function reseller_settings() {
 
-		$settings = array();
+		$settings   = array();
 		$settings[] = array(
-			'name' => 'pl_id',
-			'label' => esc_html__( 'Private Label Id', 'reseller-store-advanced' ),
-			'type' => 'number',
+			'name'        => 'pl_id',
+			'label'       => esc_html__( 'Private Label Id', 'reseller-store-advanced' ),
+			'type'        => 'number',
 			'description' => esc_html__( 'The private label id that you have set for your storefront.', 'reseller-store-advanced' ),
 		);
 		$settings[] = array(
-			'name' => 'api_currency',
-			'label' => esc_html__( 'Currency', 'reseller-store-advanced' ),
-			'type' => 'select',
-			'list' => self::$currencies,
+			'name'        => 'api_currency',
+			'label'       => esc_html__( 'Currency', 'reseller-store-advanced' ),
+			'type'        => 'select',
+			'list'        => self::$currencies,
 			'description' => esc_html__( 'Set the currency to display on your storefront.', 'reseller-store-advanced' ),
 		);
 		$settings[] = array(
-			'name' => 'api_market',
-			'label' => esc_html__( 'Override Api Market', 'reseller-store-advanced' ),
-			'type' => 'select',
-			'list' => self::$markets,
+			'name'        => 'api_market',
+			'label'       => esc_html__( 'Override Api Market', 'reseller-store-advanced' ),
+			'type'        => 'select',
+			'list'        => self::$markets,
 			'description' => esc_html__( 'Override your default language selected in the wordpress setup.', 'reseller-store-advanced' ),
 		);
 		$settings[] = array(
-			'name' => 'sync_ttl',
-			'label' => esc_html__( 'Api Sync TTL (seconds)', 'reseller-store-advanced' ),
-			'type' => 'number',
+			'name'        => 'sync_ttl',
+			'label'       => esc_html__( 'Api Sync TTL (seconds)', 'reseller-store-advanced' ),
+			'type'        => 'number',
 			'description' => esc_html__( 'Reseller store will check the api for changes periodically. The default is 15 minutes (900 seconds).', 'reseller-store-advanced' ),
 		);
 		$settings[] = array(
-			'name' => 'last_sync',
+			'name'  => 'last_sync',
 			'label' => esc_html__( 'Last Api Sync', 'reseller-store-advanced' ),
-			'type' => 'time',
+			'type'  => 'time',
 		);
 		$settings[] = array(
-			'name' => 'next_sync',
+			'name'  => 'next_sync',
 			'label' => esc_html__( 'Next Api Sync', 'reseller-store-advanced' ),
-			'type' => 'time',
+			'type'  => 'time',
 		);
 		$settings[] = array(
-			'name' => 'api_tld',
-			'label' => esc_html__( 'Api Url', 'reseller-store-advanced' ),
-			'type' => 'text',
+			'name'        => 'api_tld',
+			'label'       => esc_html__( 'Api Url', 'reseller-store-advanced' ),
+			'type'        => 'text',
 			'description' => esc_html__( 'Set url for internal testing.', 'reseller-store-advanced' ),
 		);
 		$settings[] = array(
-			'name' => 'setup_rcc',
-			'label' => esc_html__( 'RCC Url', 'reseller-store-advanced' ),
-			'type' => 'text',
+			'name'        => 'setup_rcc',
+			'label'       => esc_html__( 'RCC Url', 'reseller-store-advanced' ),
+			'type'        => 'text',
 			'description' => esc_html__( 'Set url for internal testing.', 'reseller-store-advanced' ),
 		);
 		return $settings;
@@ -336,7 +320,7 @@ final class Settings {
 	function reseller_register_settings() {
 		$settings = self::reseller_settings();
 		foreach ( $settings as $setting ) {
-			register_setting( 'reseller_settings',$setting['name'] );
+			register_setting( 'reseller_settings', $setting['name'] );
 		}
 	}
 
@@ -474,7 +458,7 @@ final class Settings {
 						</div>
 					</div>
 					<div class="container">
-					 <button id='clipboard' class="button button-primary" data-clipboard-action="copy" data-clipboard-target="#json-text"><?php esc_html_e( 'Copy to clipboard', 'reseller-store-advanced' ); ?></button>
+						<button id='clipboard' class="button button-primary" data-clipboard-action="copy" data-clipboard-target="#json-text"><?php esc_html_e( 'Copy to clipboard', 'reseller-store-advanced' ); ?></button>
 						<div id="json-content">
 							<p><textarea id="json-text"> </textarea></p>
 						</div>

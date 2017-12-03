@@ -18,8 +18,6 @@
 
 namespace Reseller_Store_Advanced;
 
-use stdClass;
-
 if ( ! defined( 'ABSPATH' ) ) {
 
 	exit;
@@ -60,11 +58,13 @@ final class Plugin {
 		$this->base_dir   = plugin_dir_path( __FILE__ );
 		$this->assets_url = plugin_dir_url( __FILE__ ) . 'assets/';
 
-		add_action( 'plugins_loaded', function() {
+		add_action(
+			'plugins_loaded', function() {
 
-			load_plugin_textdomain( 'reseller-store-advanced', false, dirname( $this->basename ) . '/languages' );
+				load_plugin_textdomain( 'reseller-store-advanced', false, dirname( $this->basename ) . '/languages' );
 
-		} );
+			}
+		);
 
 		new Settings;
 		new Export;

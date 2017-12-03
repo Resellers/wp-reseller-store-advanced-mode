@@ -24,15 +24,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class Export {
 
 	/**
-	 * Hold error object.
-	 *
-	 * @since 0.3.3
-	 *
-	 * @var WP_Error
-	 */
-	private $error;
-
-	/**
 	 * Class constructor.
 	 *
 	 * @since 0.3.3
@@ -70,14 +61,14 @@ final class Export {
 		$products = array();
 
 		foreach ( $posts as $post_id ) {
-			$post = get_post( $post_id );
-			$title = $post->post_title;
+			$post    = get_post( $post_id );
+			$title   = $post->post_title;
 			$content = apply_filters( 'the_content', $post->post_content );
 
 			$product = self::rstore_get_product_meta( $post_id, 'id' );
 
 			$products[ $product ] = array(
-				'title' => $title,
+				'title'   => $title,
 				'content' => $content,
 			);
 		}
