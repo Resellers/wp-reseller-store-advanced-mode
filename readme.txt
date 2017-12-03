@@ -2,7 +2,8 @@
 Contributors:      bfocht
 Tags:              admin, posts, users
 Requires at least: 4.6
-Tested up to:      4.8
+Tested up to:      4.9
+Requires PHP:      5.4
 Stable tag:        1.1.0
 License:           GPL-2.0
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -16,7 +17,7 @@ This is the [Game Genie](https://en.wikipedia.org/wiki/Game_Genie) for the [Rese
 With this plugin, you will get an Advanced Options menu that allows to tap into the filters in the Reseller Store plugin.
 
 Filters currently used:
-    `rstore_api_tld` 
+    `rstore_api_tld`
     `rstore_domain_html`
     `rstore_setup_rcc`
     `rstore_sync_ttl`
