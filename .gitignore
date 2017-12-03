@@ -1,4 +1,11 @@
 node_modules
 tests/codeception/_output/*
+
+#dev hidden files
 .DS_Store
 .idea/
+deploy.md
+
+# plugin build files
+build/
+reseller-store-advanced-mode.zip
