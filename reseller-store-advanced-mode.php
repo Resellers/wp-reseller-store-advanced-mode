@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: GoDaddy Reseller Store Advanced Settings
- * Description: Advanced debug settings for the reseller storefront plugin
+ * Description: Advanced debug settings for the reseller store plugin
  * Version: 1.4.0
  * Author: GoDaddy
  * Author URI: https://reseller.godaddy.com/
