@@ -3,8 +3,8 @@
  * Plugin Name: GoDaddy Reseller Store Advanced Settings
  * Description: Advanced debug settings for the reseller store plugin
  * Version: 1.4.2
- * Author: GoDaddy
- * Author URI: https://reseller.godaddy.com/
+ * Author: Reseller Team
+ * Author URI: https://www.godaddy.com/reseller-program
  * License: GPL-2.0
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: reseller-store-advanced
@@ -65,6 +65,10 @@ final class Plugin {
 
 			}
 		);
+
+		register_activation_hook( __FILE__,  function() {
+			update_option( 'wpem_done', true );
+		});
 
 		new Settings;
 		new Export;

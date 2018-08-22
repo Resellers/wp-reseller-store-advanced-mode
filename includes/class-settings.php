@@ -49,7 +49,7 @@ final class Settings {
 	 *
 	 * @var string
 	 */
-	const SETTINGS_PAGE_SLUG = 'admin.php?page=reseller-store-settings';
+	const SETTINGS_PAGE_SLUG = 'options-general.php?page=reseller-store-settings';
 
 	/**
 	 * Array of Currencies.
@@ -84,7 +84,7 @@ final class Settings {
 		$api_tld = rstore_get_option( 'api_tld' );
 		if ( ! empty( $api_tld ) ) {
 			add_filter( 'rstore_api_tld', [ $this, 'api_tld_filter' ] );
-			add_filter( 'rstore_domain_html', [ $this, 'rstore_domain_html_filter' ] );
+			add_filter( 'rstore_domain_search_html', [ $this, 'rstore_domain_search_html' ] );
 		}
 
 		$setup_rcc = rstore_get_option( 'setup_rcc' );
@@ -109,6 +109,18 @@ final class Settings {
 					}, self::SLUG, 'advanced', 'low'
 				);
 			}
+		);
+
+		add_action(
+			'add_meta_boxes', function () {
+			add_meta_box(
+				'debug-' . self::SLUG, 'Debug Info', function () {
+				global $post;
+				echo var_dump( rstore()->api->get( 'catalog/{pl_id}/products/ssl-premium' ) );
+
+			}, self::SLUG, 'advanced', 'low'
+			);
+		}
 		);
 
 	}
@@ -150,6 +162,18 @@ final class Settings {
 	 */
 	public function register() {
 
+		if ( ! rstore_is_setup() || ! rstore_has_products() ) {
+
+			add_options_page(
+				self::SETTINGS_PAGE_SLUG,
+				esc_html__( 'Reseller Store Advanced Options', 'reseller-store-advanced' ),
+				'manage_options',
+				'reseller-store-settings',
+				[$this, 'edit_settings']
+			);
+		    return;
+		}
+
 		add_submenu_page(
 			self::PAGE_SLUG,
 			esc_html__( 'Reseller Store Advanced Options', 'reseller-store-advanced' ),
@@ -158,7 +182,6 @@ final class Settings {
 			'reseller-store-settings',
 			[ $this, 'edit_settings' ]
 		);
-
 	}
 
 	/**
@@ -181,7 +204,7 @@ final class Settings {
 	 * @param array $html Html for domain search.
 	 * @return null|string|string[]
 	 */
-	public function rstore_domain_html_filter( $html ) {
+	public function rstore_domain_search_html( $html ) {
 		$pattern     = '/(<div.)(.*)(>.*<\/div>)/';
 		$replacement = '${1} ${2} data-base_url="' . rstore_get_option( 'api_tld' ) . '"" ${3}';
 		return preg_replace( $pattern, $replacement, $html );
