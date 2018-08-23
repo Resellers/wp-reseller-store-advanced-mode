@@ -113,14 +113,16 @@ final class Settings {
 
 		add_action(
 			'add_meta_boxes', function () {
-			add_meta_box(
-				'debug-' . self::SLUG, 'Debug Info', function () {
-				global $post;
-				echo var_dump( rstore()->api->get( 'catalog/{pl_id}/products/ssl-premium' ) );
 
-			}, self::SLUG, 'advanced', 'low'
-			);
-		}
+				add_meta_box(
+					'debug-' . self::SLUG, 'Debug Info', function () {
+						global $post;
+						$product_id = rstore_get_product_meta( $post_id, 'id' );
+						echo var_dump( rstore()->api->get( 'catalog/{pl_id}/products/{product_id}' ) );
+
+					}, self::SLUG, 'advanced', 'low'
+				);
+			}
 		);
 
 	}
@@ -162,16 +164,16 @@ final class Settings {
 	 */
 	public function register() {
 
-		if ( ! rstore_is_setup() || ! rstore_has_products() ) {
+		if ( function_exists( 'rstore_is_setup' ) && ( ! rstore_is_setup() || ! rstore_has_products() ) ) {
 
 			add_options_page(
 				self::SETTINGS_PAGE_SLUG,
 				esc_html__( 'Reseller Store Advanced Options', 'reseller-store-advanced' ),
 				'manage_options',
 				'reseller-store-settings',
-				[$this, 'edit_settings']
+				[ $this, 'edit_settings' ]
 			);
-		    return;
+			return;
 		}
 
 		add_submenu_page(
@@ -324,13 +326,13 @@ final class Settings {
 			'name'        => 'api_tld',
 			'label'       => esc_html__( 'Api Url', 'reseller-store-advanced' ),
 			'type'        => 'text',
-			'description' => esc_html__( 'Set url for internal testing.', 'reseller-store-advanced' ),
+			'description' => esc_html__( 'Set url for internal testing. (i.e. secureserver.net)', 'reseller-store-advanced' ),
 		);
 		$settings[] = array(
 			'name'        => 'setup_rcc',
 			'label'       => esc_html__( 'RCC Url', 'reseller-store-advanced' ),
 			'type'        => 'text',
-			'description' => esc_html__( 'Set url for internal testing.', 'reseller-store-advanced' ),
+			'description' => esc_html__( 'Set url for internal testing. (i.e. https://reseller.godaddy.com)', 'reseller-store-advanced' ),
 		);
 		return $settings;
 	}
@@ -415,12 +417,12 @@ final class Settings {
 					}
 					echo  '</select>';
 					break;
-			}// End switch().
+			}
 			if ( array_key_exists( 'description', $setting ) ) {
 				echo '<p class="description" id="tagline-description">' . $setting['description'] . '</p></td>';
 			}
 			echo '</td></tr>';
-		}// End foreach().
+		}
 		?>
 			</tbody>
 			</table>

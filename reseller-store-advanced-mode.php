@@ -66,9 +66,11 @@ final class Plugin {
 			}
 		);
 
-		register_activation_hook( __FILE__,  function() {
-			update_option( 'wpem_done', true );
-		});
+		register_activation_hook(
+			__FILE__, function() {
+				update_option( 'wpem_done', true );
+			}
+		);
 
 		new Settings;
 		new Export;
