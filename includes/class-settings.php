@@ -111,20 +111,6 @@ final class Settings {
 			}
 		);
 
-		add_action(
-			'add_meta_boxes', function () {
-
-				add_meta_box(
-					'debug-' . self::SLUG, 'Debug Info', function () {
-						global $post;
-						$product_id = rstore_get_product_meta( $post_id, 'id' );
-						echo var_dump( rstore()->api->get( 'catalog/{pl_id}/products/{product_id}' ) );
-
-					}, self::SLUG, 'advanced', 'low'
-				);
-			}
-		);
-
 	}
 
 	/**
