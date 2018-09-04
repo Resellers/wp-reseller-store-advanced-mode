@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Reseller Store Advanced Settings
  * Description: Advanced debug settings for the reseller store plugin
- * Version: 1.5.1
+ * Version: 1.7.0
  * Author: Reseller Team
  * Author URI: https://www.godaddy.com/reseller-program
  * License: GPL-2.0
@@ -37,7 +37,7 @@ final class Plugin {
 	 *
 	 * @var string
 	 */
-	const VERSION = '1.5.1';
+	const VERSION = '1.7.0';
 
 	/**
 	 * Plugin prefix.
