@@ -1,22 +1,22 @@
 <?php
 /**
- * Plugin Name: Reseller Store Advanced Settings
- * Description: Advanced debug settings for the reseller store plugin
+ * Plugin Name: Reseller Store Settings
+ * Description: Advanced settings for the reseller store plugin
  * Version: 1.7.0
  * Author: Reseller Team
  * Author URI: https://www.godaddy.com/reseller-program
  * License: GPL-2.0
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: reseller-store-advanced
+ * Text Domain: reseller-store-settings
  * Domain Path: /languages
  *
  * This plugin, like WordPress, is licensed under the GPL.
  * Use it to make something cool, have fun, and share what you've learned with others.
  *
- * Copyright © 2017 GoDaddy Operating Company, LLC. All Rights Reserved.
+ * Copyright © 2019 GoDaddy Operating Company, LLC. All Rights Reserved.
  */
 
-namespace Reseller_Store_Advanced;
+namespace Reseller_Store_Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
 
@@ -61,7 +61,7 @@ final class Plugin {
 		add_action(
 			'plugins_loaded', function() {
 
-				load_plugin_textdomain( 'reseller-store-advanced', false, dirname( $this->basename ) . '/languages' );
+				load_plugin_textdomain( 'reseller-store-settings', false, dirname( $this->basename ) . '/languages' );
 
 			}
 		);

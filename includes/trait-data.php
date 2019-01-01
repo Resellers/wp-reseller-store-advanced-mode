@@ -4,14 +4,14 @@
  *
  * Reseller store product data trait.
  *
- * @trait    Reseller_Store_Advanced/Data
- * @package  Reseller_Store_Advanced/Plugin
+ * @trait    Reseller_Store_Settings/Data
+ * @package  Reseller_Store_Settings
  * @category trait
  * @author   GoDaddy
  * @since    1.0.0
  */
 
-namespace Reseller_Store_Advanced;
+namespace Reseller_Store_Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
 

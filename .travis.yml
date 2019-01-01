@@ -75,7 +75,7 @@ before_deploy:
   - curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli-nightly.phar > /tmp/wp-cli.phar
   - chmod +x /tmp/wp-cli.phar
   - php /tmp/wp-cli.phar package install git@github.com:wp-cli/dist-archive-command.git
-  - export RELEASE_FOLDER=reseller-store-advanced-mode
+  - export RELEASE_FOLDER=reseller-store-settings
   - cp -r ${TRAVIS_BUILD_DIR} /tmp/${RELEASE_FOLDER}
   - mv /tmp/${RELEASE_FOLDER} ${TRAVIS_BUILD_DIR}
   - php /tmp/wp-cli.phar dist-archive ${RELEASE_FOLDER} ${TRAVIS_BUILD_DIR}/${RELEASE_FOLDER}.zip --format=zip --debug
@@ -87,7 +87,7 @@ deploy:
   file: $RELEASE_FOLDER.zip
   on:
     tags: true
-    repo: Resellers/wp-reseller-store-advanced-mode
+    repo: Resellers/wp-reseller-store-settings
     php: '7.1'
     condition:  $WP_VERSION = latest
   skip_cleanup: true

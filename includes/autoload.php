@@ -2,13 +2,13 @@
 /**
  * GoDaddy Reseller Store Autoloader class.
  *
- * @package  Reseller_Store_Advanced/Plugin
+ * @package  Reseller_Store_Settings/Plugin
  * @category Class
  * @author   GoDaddy
  * @since    1.0.0
  */
 
-namespace Reseller_Store_Advanced;
+namespace Reseller_Store_Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
 

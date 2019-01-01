@@ -1,17 +1,17 @@
 <?php
 /**
- * GoDaddy Reseller Store Helpers.
+ * Reseller Store Settings Helpers.
  *
  * Reseller store product helpers trait.
  *
- * @trait    Reseller_Store/Helpers
- * @package  Reseller_Store/Plugin
+ * @trait    Reseller_Store_Settings/Helpers
+ * @package  Reseller_Store_Settings
  * @category trait
  * @author   GoDaddy
  * @since    1.0.0
  */
 
-namespace Reseller_Store_Advanced;
+namespace Reseller_Store_Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
 

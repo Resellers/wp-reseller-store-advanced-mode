@@ -3,7 +3,7 @@
  * GoDaddy Reseller Store Widget test cases.
  */
 
-namespace Reseller_Store_Advanced;
+namespace Reseller_Store_Settngs;
 
 class TestCase extends \WP_UnitTestCase {
 

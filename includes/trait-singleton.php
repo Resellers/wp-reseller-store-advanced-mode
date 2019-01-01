@@ -5,14 +5,14 @@
  * Reseller store product singleton trait. Ensures only one instance of the
  * GoDaddy Reseller Store plugin is instantiated at any given time.
  *
- * @trait    Reseller_Store_Advanced/Singleton
- * @package  Reseller_Store_Advanced/Plugin
+ * @trait    Reseller_Store_Settings/Singleton
+ * @package  Reseller_Store_Settings
  * @category trait
  * @author   GoDaddy
  * @since    1.0.0
  */
 
-namespace Reseller_Store_Advanced;
+namespace Reseller_Store_Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
 

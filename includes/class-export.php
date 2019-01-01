@@ -4,14 +4,14 @@
  *
  * Formats custom post to a json.
  *
- * @class    Reseller_Store_Advanced/Export
- * @package  Reseller_Store_Advanced/Plugin
+ * @class    Reseller_Store_Settings/Export
+ * @package  Reseller_Store_Settings/Export
  * @category Class
  * @author   GoDaddy
  * @since    1.0.0
  */
 
-namespace Reseller_Store_Advanced;
+namespace Reseller_Store_Settings;
 
 use stdClass;
 
@@ -44,7 +44,7 @@ final class Export {
 
 		if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'rstore_export' ) ) {
 			wp_send_json_error(
-				esc_html__( 'Error: Invalid Session. Refresh the page and try again.', 'reseller-store-advanced' )
+				esc_html__( 'Error: Invalid Session. Refresh the page and try again.', 'reseller-store-settings' )
 			);
 			return;
 		}

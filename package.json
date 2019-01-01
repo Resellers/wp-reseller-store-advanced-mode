@@ -1,14 +1,14 @@
 {
-  "name": "reseller-store-advanced-mode",
-  "title": "GoDaddy Reseller Store",
-  "description": "Resell hosting, domains, and more right from your WordPress site.",
+  "name": "reseller-store-settings",
+  "title": "Reseller Store Settings WordPress plugin",
+  "description": "Access advanced settings and filters for the Reseller Store WordPress plugin",
   "version": "1.7.0",
   "author": "GoDaddy",
   "license": "GPL-2.0",
-  "repository": "Resellers/wp-reseller-store-advanced-mode",
-  "homepage": "https://wordpress.org/plugins/reseller-store-advanced-mode/",
+  "repository": "Resellers/wp-reseller-store-settings",
+  "homepage": "https://wordpress.org/plugins/reseller-store-settings/",
   "bugs": {
-    "url": "https://github.com/Resellers/wp-reseller-store-advanced-mode/issues"
+    "url": "https://github.com/Resellers/wp-reseller-store-settings/issues"
   },
   "engines": {
     "node": ">= 7.5.0",

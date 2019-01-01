@@ -1,9 +1,9 @@
 <?php
 /**
- * GoDaddy Reseller Store Advanced Mode test basics
+ * GoDaddy Reseller Store Settingstest basics
  */
 
-namespace Reseller_Store_Advanced;
+namespace Reseller_Store_Settings;
 
 final class TestPlugin extends TestCase {
 

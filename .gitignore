@@ -8,4 +8,4 @@ deploy.md
 
 # plugin build files
 build/
-reseller-store-advanced-mode.zip
+*.zip

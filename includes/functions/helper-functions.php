@@ -9,7 +9,7 @@
  * @since    1.0.0
  */
 
-namespace Reseller_Store_Advanced;
+namespace Reseller_Store_Settings;
 
 /**
  * Check if we are on a specific admin screen.

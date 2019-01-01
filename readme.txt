@@ -1,8 +1,8 @@
-=== GoDaddy Reseller Store Advanced Mode ===
+=== Reseller Store Settings ===
 Contributors:      bfocht
 Tags:              admin, posts, users
 Requires at least: 4.6
-Tested up to:      4.9
+Tested up to:      5.2
 Requires PHP:      5.4
 Stable tag:        1.7.0
 License:           GPL-2.0
@@ -14,7 +14,7 @@ This is the [Game Genie](https://en.wikipedia.org/wiki/Game_Genie) for the [Rese
 
 **Note: This plugin requires PHP 5.4 or higher**
 
-With this plugin, you will get an Advanced Options menu that allows to tap into the filters in the Reseller Store plugin.
+With this plugin, you will get an Settings menu that allows to tap into the filters in the Reseller Store plugin.
 
 Filters currently used:
     `rstore_api_tld`
