@@ -11,7 +11,7 @@
 			submit  = $this.find( 'button' ),
 			spinner = $this.find( 'img' );
 
-		$this.find("[name='action']").val('rstore_advanced_save');
+		$this.find("[name='action']").val('rstore_settings_save');
 
 		submit.prop( 'disabled', true );
 		spinner.css( 'visibility', 'visible' );

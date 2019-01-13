@@ -59,7 +59,8 @@ final class Plugin {
 		$this->assets_url = plugin_dir_url( __FILE__ ) . 'assets/';
 
 		add_action(
-			'plugins_loaded', function() {
+			'plugins_loaded',
+			function() {
 
 				load_plugin_textdomain( 'reseller-store-settings', false, dirname( $this->basename ) . '/languages' );
 
@@ -67,7 +68,8 @@ final class Plugin {
 		);
 
 		register_activation_hook(
-			__FILE__, function() {
+			__FILE__,
+			function() {
 				update_option( 'wpem_done', true );
 			}
 		);
