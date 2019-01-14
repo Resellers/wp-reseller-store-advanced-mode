@@ -8,7 +8,7 @@
 **License:**           GPL-2.0  
 **License URI:**       https://www.gnu.org/licenses/gpl-2.0.html  
 
-This is the [Game Genie](https://en.wikipedia.org/wiki/Game_Genie) for the [Reseller Store plugin](https://github.com/godaddy/wp-reseller-store/).
+This is an add-on plugin for the [Reseller Store plugin](https://github.com/godaddy/wp-reseller-store/) that will create a settings menu.
 
 [![Build Status](https://travis-ci.org/Resellers/wp-reseller-store-settings.svg?branch=master)](https://travis-ci.org/Resellers/wp-reseller-store-settings) [![devDependencies Status](https://david-dm.org/Resellers/wp-reseller-store-settings/master/dev-status.svg)](https://david-dm.org/Resellers/wp-reseller-store-settings/master?type=dev) [![License](https://img.shields.io/badge/license-GPL--2.0-brightgreen.svg)](https://github.com/Resellers/wp-reseller-store-settings/blob/master/license.txt) [![PHP >= 5.4](https://img.shields.io/badge/php-%3E=%205.4-8892bf.svg)](https://secure.php.net/supported-versions.php) [![WordPress >= 4.6](https://img.shields.io/badge/wordpress-%3E=%204.6-blue.svg)](https://wordpress.org/download/release-archive/)  
 
@@ -18,31 +18,13 @@ This is the [Game Genie](https://en.wikipedia.org/wiki/Game_Genie) for the [Rese
 
 With this plugin, you will get an Settings menu that allows to tap into the filters in the Reseller Store plugin.
 
-Filters currently used:
-    `rstore_api_tld`
-    `rstore_domain_html`
-    `rstore_setup_rcc`
-    `rstore_sync_ttl`
-    `rstore_api_query_args`
-
-Filters not supported _yet_:
-    `rstore_api_max_retries`
-    `rstore_api_request_args`
-    `rstore_cookie_ttl`
-    `rstore_product_args`
-    `rstore_product_category_args`
-    `rstore_product_tag_args`
-    `rstore_setup_rcc`
-    `rstore_sync_properties`
-    `rstore_sync_retry_ttl`
-    `rstore_sync_properties`
-    `rstore_cart_widget_classes`
-    `rstore_domain_search_widget_classes`
-    `rstore_product_widget_classes`
-    `widget_title`
-
 
 ## Changelog ##
+
+### 2.0.0 - January 2019 ###
+* Renamed plugin
+* Add tabs to the settings page
+* Create products tab and add filters
 
 ### 0.1.0 - January 2017 ###
 

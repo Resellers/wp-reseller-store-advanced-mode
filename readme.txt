@@ -8,7 +8,7 @@ Stable tag:        1.7.0
 License:           GPL-2.0
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-This is the [Game Genie](https://en.wikipedia.org/wiki/Game_Genie) for the [Reseller Store plugin](https://github.com/godaddy/wp-reseller-store/).
+This is an add-on plugin for the [Reseller Store plugin](https://github.com/godaddy/wp-reseller-store/) that will create a settings menu.
 
 == Description ==
 
@@ -16,31 +16,13 @@ This is the [Game Genie](https://en.wikipedia.org/wiki/Game_Genie) for the [Rese
 
 With this plugin, you will get an Settings menu that allows to tap into the filters in the Reseller Store plugin.
 
-Filters currently used:
-    `rstore_api_tld`
-    `rstore_domain_html`
-    `rstore_setup_rcc`
-    `rstore_sync_ttl`
-    `rstore_api_query_args`
-
-Filters not supported _yet_:
-    `rstore_api_max_retries`
-    `rstore_api_request_args`
-    `rstore_cookie_ttl`
-    `rstore_product_args`
-    `rstore_product_category_args`
-    `rstore_product_tag_args`
-    `rstore_setup_rcc`
-    `rstore_sync_properties`
-    `rstore_sync_retry_ttl`
-    `rstore_sync_properties`
-    `rstore_cart_widget_classes`
-    `rstore_domain_search_widget_classes`
-    `rstore_product_widget_classes`
-    `widget_title`
-
 
 == Changelog ==
+
+= 2.0.0 - January 2019 =
+* Renamed plugin
+* Add tabs to the settings page
+* Create products tab and add filters
 
 = 0.1.0 - January 2017 =
 
