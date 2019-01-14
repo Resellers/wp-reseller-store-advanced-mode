@@ -197,12 +197,24 @@ final class Settings {
 			);
 		}
 
-		$product_content_height = rstore_get_option( 'product_content_height' );
-		if ( ! empty( $product_content_height ) ) {
+		$product_content_height     = rstore_get_option( 'product_content_height' );
+		$product_set_content_height = rstore_get_option( 'product_set_content_height' );
+		if ( ! empty( $product_content_height ) || ! empty( $product_set_content_height ) ) {
 			add_filter(
 				'rstore_product_content_height',
-				function() {
-					return intval( rstore_get_option( 'product_content_height' ) );
+				function( $original_height ) {
+
+					if ( rstore_get_option( 'product_set_content_height' ) === 'no' ) {
+						return 0;
+					}
+
+					$content_height = intval( rstore_get_option( 'product_content_height' ) );
+
+					if ( $content_height > 0 ) {
+						return $content_height;
+					}
+
+					return $original_height;
 				}
 			);
 		}
@@ -556,6 +568,14 @@ final class Settings {
 					'type'        => 'text',
 					'placeholder' => esc_html__( 'Continue to cart', 'reseller-store-settings' ),
 					'description' => esc_html__( 'Override cart link text. Empty field means no override set.', 'reseller-store-settings' ),
+				);
+
+				$settings[] = array(
+					'name'        => 'product_set_content_height',
+					'label'       => esc_html__( 'Set Content height', 'reseller-store-settings' ),
+					'type'        => 'select',
+					'list'        => self::$options,
+					'description' => esc_html__( 'Override fixed content height with product Permalink. Default means no override set.', 'reseller-store-settings' ),
 				);
 
 				$settings[] = array(
