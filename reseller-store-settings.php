@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Reseller Store Settings
  * Description: Advanced settings for the reseller store plugin
- * Version: 1.7.0
+ * Version: 1.8.0
  * Author: Reseller Team
  * Author URI: https://www.godaddy.com/reseller-program
  * License: GPL-2.0
@@ -37,7 +37,7 @@ final class Plugin {
 	 *
 	 * @var string
 	 */
-	const VERSION = '1.7.0';
+	const VERSION = '1.8.0';
 
 	/**
 	 * Plugin prefix.

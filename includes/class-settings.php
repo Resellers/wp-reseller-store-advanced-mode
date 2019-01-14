@@ -72,7 +72,7 @@ final class Settings {
 	/**
 	 * Array of product layouts.
 	 *
-	 * @since NEXT
+	 * @since 1.8.0
 	 *
 	 * @var array
 	 */
@@ -81,7 +81,7 @@ final class Settings {
 	/**
 	 * Array of setting options.
 	 *
-	 * @since NEXT
+	 * @since 1.8.0
 	 *
 	 * @var array
 	 */
@@ -90,7 +90,7 @@ final class Settings {
 	/**
 	 * Array of product image sizes.
 	 *
-	 * @since NEXT
+	 * @since 1.8.0
 	 *
 	 * @var array
 	 */
@@ -99,7 +99,7 @@ final class Settings {
 	/**
 	 * Array of available tabs in settings.
 	 *
-	 * @since NEXT
+	 * @since 1.8.0
 	 *
 	 * @var array
 	 */
@@ -416,7 +416,7 @@ final class Settings {
 	/**
 	 * Get the current tab the admin is on
 	 *
-	 * @since  NEXT
+	 * @since  1.8.0
 	 */
 	function get_active_tab() {
 
@@ -432,7 +432,7 @@ final class Settings {
 	/**
 	 * Build settings array
 	 *
-	 * @since  NEXT
+	 * @since  1.8.0
 	 *
 	 * @param string $active_tab The tab the admin is currently on.
 	 * @return array
