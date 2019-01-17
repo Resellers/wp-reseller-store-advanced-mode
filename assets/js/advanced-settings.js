@@ -1,4 +1,4 @@
-/* global ajaxurl, jQuery, Clipboard */
+/* global ajaxurl, jQuery */
 
 ( function( $ ) {
 	'use strict';
@@ -33,14 +33,8 @@
 		$.post( ajaxurl, $this.serialize(), function( response ) {
 			if ( response ) {
 				$( '#json-text' ).text( JSON.stringify( response ) );
-				$.magnificPopup.open( {
-					mainClass: 'mfp-zoom-in',
-					items: {
-						src: '#json-generator',
-					},
-					type: 'inline',
-					removalDelay: 500,
-				}, 0 );
+				$('#json-generator').show();
+
 			}
 		} );
 		return false;
@@ -49,6 +43,5 @@
 	$( document ).ready( function() {
 		$( '#rstore-settings-form' ).on( 'submit', save );
 		$( '#rstore-settings-export' ).on( 'submit', exportProduct );
-		new Clipboard( '#clipboard' );
 	} );
 } )( jQuery );

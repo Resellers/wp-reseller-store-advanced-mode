@@ -79,15 +79,6 @@ final class Settings {
 	static $layout_type = [ 'default', 'classic' ];
 
 	/**
-	 * Array of setting options.
-	 *
-	 * @since 1.8.0
-	 *
-	 * @var array
-	 */
-	static $options = [ 'default', 'yes', 'no' ];
-
-	/**
 	 * Array of product image sizes.
 	 *
 	 * @since 1.8.0
@@ -103,7 +94,7 @@ final class Settings {
 	 *
 	 * @var array
 	 */
-	static $available_tabs = [ 'product_options', 'localization_options', 'setup_options', 'developer_options' ];
+	static $available_tabs = [ 'product_options', 'domain_options', 'localization_options', 'setup_options', 'data_options', 'developer_options' ];
 
 	/**
 	 * Class constructor.
@@ -117,8 +108,16 @@ final class Settings {
 		add_action( 'admin_menu', [ $this, 'register' ] );
 		add_action( 'wp_ajax_rstore_settings_save', [ __CLASS__, 'save' ] );
 
-		$product_image_size = rstore_get_option( 'product_image_size' );
-		if ( ! empty( $product_image_size ) ) {
+		if ( ! empty( rstore_get_option( 'product_layout_type' ) ) ) {
+			add_filter(
+				'rstore_product_layout_type',
+				function() {
+					return rstore_get_option( 'product_layout_type' );
+				}
+			);
+		}
+
+		if ( ! empty( rstore_get_option( 'product_image_size' ) ) ) {
 			add_filter(
 				'rstore_product_image_size',
 				function() {
@@ -127,48 +126,7 @@ final class Settings {
 			);
 		}
 
-		$product_show_title = rstore_get_option( 'product_show_title' );
-		if ( ! empty( $product_show_title ) ) {
-			add_filter(
-				'rstore_product_show_title',
-				function() {
-					return rstore_get_option( 'product_show_title' ) === 'yes';
-				}
-			);
-		}
-
-		$product_show_content = rstore_get_option( 'product_show_content' );
-		if ( ! empty( $product_show_content ) ) {
-			add_filter(
-				'rstore_product_show_content',
-				function() {
-					return rstore_get_option( 'product_show_content' ) === 'yes';
-				}
-			);
-		}
-
-		$product_show_price = rstore_get_option( 'product_show_price' );
-		if ( ! empty( $product_show_price ) ) {
-			add_filter(
-				'rstore_product_show_price',
-				function() {
-					return rstore_get_option( 'product_show_price' ) === 'yes';
-				}
-			);
-		}
-
-		$product_redirect = rstore_get_option( 'product_redirect' );
-		if ( ! empty( $product_redirect ) ) {
-			add_filter(
-				'rstore_product_redirect',
-				function() {
-					return rstore_get_option( 'product_redirect' ) === 'yes';
-				}
-			);
-		}
-
-		$product_button_label = rstore_get_option( 'product_button_label' );
-		if ( ! empty( $product_button_label ) ) {
+		if ( ! empty( rstore_get_option( 'product_button_label' ) ) ) {
 			add_filter(
 				'rstore_product_button_label',
 				function() {
@@ -177,8 +135,7 @@ final class Settings {
 			);
 		}
 
-		$product_text_cart = rstore_get_option( 'product_text_cart' );
-		if ( ! empty( $product_text_cart ) ) {
+		if ( ! empty( rstore_get_option( 'product_text_cart' ) ) ) {
 			add_filter(
 				'rstore_product_text_cart',
 				function() {
@@ -187,8 +144,7 @@ final class Settings {
 			);
 		}
 
-		$product_text_more = rstore_get_option( 'product_text_more' );
-		if ( ! empty( $product_text_more ) ) {
+		if ( ! empty( rstore_get_option( 'product_text_more' ) ) ) {
 			add_filter(
 				'rstore_product_text_more',
 				function() {
@@ -197,14 +153,48 @@ final class Settings {
 			);
 		}
 
-		$product_content_height     = rstore_get_option( 'product_content_height' );
-		$product_set_content_height = rstore_get_option( 'product_set_content_height' );
-		if ( ! empty( $product_content_height ) || ! empty( $product_set_content_height ) ) {
+		if ( ! empty( rstore_get_option( 'product_show_title' ) ) ) {
+			add_filter(
+				'rstore_product_show_title',
+				function() {
+					return false;
+				}
+			);
+		}
+
+		if ( ! empty( rstore_get_option( 'product_show_content' ) ) ) {
+			add_filter(
+				'rstore_product_show_content',
+				function() {
+					return false;
+				}
+			);
+		}
+
+		if ( ! empty( rstore_get_option( 'product_show_price' ) ) ) {
+			add_filter(
+				'rstore_product_show_price',
+				function() {
+					return false;
+				}
+			);
+		}
+
+		if ( ! empty( rstore_get_option( 'product_redirect' ) ) ) {
+			add_filter(
+				'rstore_product_redirect',
+				function() {
+					return false;
+				}
+			);
+		}
+
+		if ( ! empty( rstore_get_option( 'product_content_height' ) ) || ! empty( rstore_get_option( 'product_full_content_height' ) ) ) {
 			add_filter(
 				'rstore_product_content_height',
 				function( $original_height ) {
 
-					if ( rstore_get_option( 'product_set_content_height' ) === 'no' ) {
+					if ( rstore_get_option( 'product_full_content_height' ) ) {
 						return 0;
 					}
 
@@ -219,18 +209,79 @@ final class Settings {
 			);
 		}
 
-		$product_layout_type = rstore_get_option( 'product_layout_type' );
-		if ( ! empty( $product_layout_type ) ) {
+		if ( ! empty( rstore_get_option( 'domain_title' ) ) ) {
 			add_filter(
-				'rstore_product_layout_type',
+				'rstore_domain_title',
 				function() {
-					return rstore_get_option( 'product_layout_type' );
+					return rstore_get_option( 'domain_title' );
 				}
 			);
 		}
 
-		$api_tld = rstore_get_option( 'api_tld' );
-		if ( ! empty( $api_tld ) ) {
+		if ( ! empty( rstore_get_option( 'domain_text_placeholder' ) ) ) {
+			add_filter(
+				'rstore_domain_text_placeholder',
+				function() {
+					return rstore_get_option( 'domain_text_placeholder' );
+				}
+			);
+		}
+
+		if ( ! empty( rstore_get_option( 'domain_text_search' ) ) ) {
+			add_filter(
+				'rstore_domain_text_search',
+				function() {
+					return rstore_get_option( 'domain_text_search' );
+				}
+			);
+		}
+
+		if ( ! empty( rstore_get_option( 'domain_transfer_title' ) ) ) {
+			add_filter(
+				'rstore_domain_transfer_title',
+				function() {
+					return rstore_get_option( 'domain_transfer_title' );
+				}
+			);
+		}
+
+		if ( ! empty( rstore_get_option( 'domain_transfer_text_placeholder' ) ) ) {
+			add_filter(
+				'rstore_domain_transfer_text_placeholder',
+				function() {
+					return rstore_get_option( 'domain_transfer_text_placeholder' );
+				}
+			);
+		}
+
+		if ( ! empty( rstore_get_option( 'domain_transfer_text_search' ) ) ) {
+			add_filter(
+				'rstore_domain_transfer_text_search',
+				function() {
+					return rstore_get_option( 'domain_transfer_text_search' );
+				}
+			);
+		}
+
+		if ( ! empty( rstore_get_option( 'domain_page_size' ) ) ) {
+			add_filter(
+				'rstore_domain_page_size',
+				function() {
+					return rstore_get_option( 'domain_page_size' );
+				}
+			);
+		}
+
+		if ( ! empty( rstore_get_option( 'domain_modal' ) ) ) {
+			add_filter(
+				'rstore_domain_modal',
+				function() {
+					return rstore_get_option( 'domain_modal' );
+				}
+			);
+		}
+
+		if ( ! empty( rstore_get_option( 'api_tld' ) ) ) {
 			add_filter(
 				'rstore_api_tld',
 				function() {
@@ -240,35 +291,45 @@ final class Settings {
 			add_filter( 'rstore_domain_search_html', [ $this, 'rstore_domain_search_html' ] );
 		}
 
-		$setup_rcc = rstore_get_option( 'setup_rcc' );
-		if ( ! empty( $setup_rcc ) ) {
-			add_filter( 'rstore_setup_rcc', [ $this, 'setup_rcc_filter' ] );
+		if ( ! empty( rstore_get_option( 'setup_rcc' ) ) ) {
+			add_filter(
+				'rstore_setup_rcc',
+				function() {
+					return rstore_get_option( 'setup_rcc' );
+				}
+			);
 		}
 
-		$rstore_sync_ttl = rstore_get_option( 'rstore_sync_ttl' );
-		if ( $rstore_sync_ttl ) {
-			add_filter( 'rstore_sync_ttl', [ $this, 'rstore_sync_ttl_filter' ] );
+		if ( ! empty( rstore_get_option( 'rstore_sync_ttl' ) ) ) {
+			add_filter(
+				'rstore_sync_ttl',
+				function() {
+					return rstore_get_option( 'rstore_sync_ttl' );
+				}
+			);
 		}
 
 		add_filter( 'rstore_api_query_args', [ $this, 'rstore_api_query_args_filter' ] );
 
-		add_action(
-			'add_meta_boxes',
-			function () {
-				add_meta_box(
-					'debug-' . self::SLUG,
-					'Debug Info',
-					function () {
-						global $post;
-						echo var_dump( get_post_meta( $post->ID ) );
+		if ( rstore_get_option( 'debug' ) ) {
+			add_action(
+				'add_meta_boxes',
+				function () {
+					add_meta_box(
+						'debug-' . self::SLUG,
+						'Debug Info',
+						function () {
+							global $post;
+							echo var_dump( get_post_meta( $post->ID ) );
 
-					},
-					self::SLUG,
-					'advanced',
-					'low'
-				);
-			}
-		);
+						},
+						self::SLUG,
+						'advanced',
+						'low'
+					);
+				}
+			);
+		}
 
 	}
 
@@ -290,12 +351,6 @@ final class Settings {
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
 		wp_enqueue_script( 'rstore-settings', Plugin::assets_url( "js/advanced-settings{$suffix}.js" ), [ 'jquery' ], rstore()->version, true );
-
-		wp_enqueue_script( 'rstore-magnific-popup', Plugin::assets_url( "js/magnific-popup{$suffix}.js" ), [ 'jquery' ], rstore()->version, true );
-
-		wp_enqueue_script( 'rstore-clipboard', Plugin::assets_url( 'js/clipboard.min.js' ), [ 'jquery' ], rstore()->version, true );
-
-		wp_enqueue_style( 'rstore-magnific-popup-css', Plugin::assets_url( "css/magnific-popup{$suffix}.css" ), rstore()->version, true );
 
 		wp_enqueue_style( 'rstore-settings-css', Plugin::assets_url( "css/advanced-settings{$suffix}.css" ), rstore()->version, true );
 
@@ -347,17 +402,6 @@ final class Settings {
 	}
 
 	/**
-	 * Register the setup rcc url filter
-	 *
-	 * @action init
-	 * @since  1.1.0
-	 */
-	public function setup_rcc_filter() {
-
-		return rstore_get_option( 'setup_rcc' );
-	}
-
-	/**
 	 * Register the api request args
 	 *
 	 * @action init
@@ -384,17 +428,6 @@ final class Settings {
 	}
 
 	/**
-	 * Register the rstore_sync_ttl_filter filter
-	 *
-	 * @action init
-	 * @since  0.3.3
-	 */
-	public function rstore_sync_ttl_filter() {
-
-		return rstore_get_option( 'rstore_sync_ttl' );
-	}
-
-	/**
 	 * Edit settings
 	 *
 	 * @since  0.3.3
@@ -411,7 +444,6 @@ final class Settings {
 		$this->settings_output();
 
 	}
-
 
 	/**
 	 * Get the current tab the admin is on
@@ -442,6 +474,69 @@ final class Settings {
 		$settings = array();
 
 		switch ( $active_tab ) {
+			case 'domain_options':
+				$settings[] = array(
+					'name'        => 'domain_title',
+					'label'       => esc_html__( 'Domain title', 'reseller-store-settings' ),
+					'type'        => 'text',
+					'placeholder' => '',
+					'description' => esc_html__( 'Override the title text. Empty field means no override set.', 'reseller-store-settings' ),
+				);
+
+				$settings[] = array(
+					'name'        => 'domain_text_placeholder',
+					'label'       => esc_html__( 'Registration placeholder text', 'reseller-store-settings' ),
+					'type'        => 'text',
+					'placeholder' => esc_html__( 'Find your perfect domain name', 'reseller-store' ),
+					'description' => esc_html__( 'Override the placeholder text for domain registration. Empty field means no override set.', 'reseller-store-settings' ),
+				);
+				$settings[] = array(
+					'name'        => 'domain_text_search',
+					'label'       => esc_html__( 'Domain search button', 'reseller-store-settings' ),
+					'type'        => 'text',
+					'placeholder' => esc_html__( 'Search', 'reseller-store-settings' ),
+					'description' => esc_html__( 'Override the domain search button text. Empty field means no override set.', 'reseller-store-settings' ),
+				);
+
+				$settings[] = array(
+					'name'        => 'domain_transfer_title',
+					'label'       => esc_html__( 'Domain transfer title', 'reseller-store-settings' ),
+					'type'        => 'text',
+					'placeholder' => '',
+					'description' => esc_html__( 'Override the domain transfer title text. Empty field means no override set.', 'reseller-store-settings' ),
+				);
+
+				$settings[] = array(
+					'name'        => 'domain_transfer_text_placeholder',
+					'label'       => esc_html__( 'Transfer placeholder text', 'reseller-store-settings' ),
+					'type'        => 'text',
+					'placeholder' => esc_html__( 'Enter domain to transfer', 'reseller-store' ),
+					'description' => esc_html__( 'Override the domain transfer placeholder text. Empty field means no override set.', 'reseller-store-settings' ),
+				);
+				$settings[] = array(
+					'name'        => 'domain_transfer_text_search',
+					'label'       => esc_html__( 'Transfer button', 'reseller-store-settings' ),
+					'type'        => 'text',
+					'placeholder' => esc_html__( 'Transfer', 'reseller-store-settings' ),
+					'description' => esc_html__( 'Override the title text. Empty field means no override set.', 'reseller-store-settings' ),
+				);
+
+				$settings[] = array(
+					'name'        => 'domain_page_size',
+					'label'       => esc_html__( 'Page size', 'reseller-store-settings' ),
+					'type'        => 'number',
+					'description' => esc_html__( 'Override the number of results returned.  Empty field means no override set.', 'reseller-store-settings' ),
+				);
+
+				$settings[] = array(
+					'name'        => 'domain_modal',
+					'label'       => esc_html__( 'Display results in a modal', 'reseller-store-settings' ),
+					'type'        => 'checkbox',
+					'checked'     => 0,
+					'description' => esc_html__( 'Display the results in a popup modal. Unchecked will default to no modal.', 'reseller-store-settings' ),
+				);
+
+				break;
 			case 'setup_options':
 				$settings[] = array(
 					'name'        => 'pl_id',
@@ -480,6 +575,7 @@ final class Settings {
 				);
 
 				break;
+
 			case 'developer_options':
 				$settings[] = array(
 					'name'        => 'sync_ttl',
@@ -503,6 +599,14 @@ final class Settings {
 					'description' => esc_html__( 'Set url for internal testing.', 'reseller-store-settings' ),
 				);
 
+				$settings[] = array(
+					'name'        => 'debug',
+					'label'       => esc_html__( 'Debug', 'reseller-store-settings' ),
+					'type'        => 'checkbox',
+					'checked'     => 0,
+					'description' => esc_html__( 'Show product meta info in admin.', 'reseller-store-settings' ),
+				);
+
 				break;
 
 			default:
@@ -511,7 +615,7 @@ final class Settings {
 					'label'       => esc_html__( 'Widget Layout', 'reseller-store-settings' ),
 					'type'        => 'select',
 					'list'        => self::$layout_type,
-					'description' => esc_html__( 'Set product widget layout.', 'reseller-store-settings' ),
+					'description' => esc_html__( 'Set product widget layout. Classic layout will display price and cart button at the bottom of widget.', 'reseller-store-settings' ),
 				);
 
 				$settings[] = array(
@@ -525,25 +629,25 @@ final class Settings {
 				$settings[] = array(
 					'name'        => 'product_show_title',
 					'label'       => esc_html__( 'Show product title', 'reseller-store-settings' ),
-					'type'        => 'select',
-					'list'        => self::$options,
-					'description' => esc_html__( 'Override to display product title. Default means no override set.', 'reseller-store-settings' ),
+					'type'        => 'checkbox',
+					'checked'     => 1,
+					'description' => esc_html__( 'Default value is checked.', 'reseller-store-settings' ),
 				);
 
 				$settings[] = array(
 					'name'        => 'product_show_content',
 					'label'       => esc_html__( 'Show post content', 'reseller-store-settings' ),
-					'type'        => 'select',
-					'list'        => self::$options,
-					'description' => esc_html__( 'Override display post content. Default means no override set.', 'reseller-store-settings' ),
+					'type'        => 'checkbox',
+					'checked'     => 1,
+					'description' => esc_html__( 'Default value is checked.', 'reseller-store-settings' ),
 				);
 
 				$settings[] = array(
 					'name'        => 'product_show_price',
 					'label'       => esc_html__( 'Show product price', 'reseller-store-settings' ),
-					'type'        => 'select',
-					'list'        => self::$options,
-					'description' => esc_html__( 'Override show product price. Default means no override set.', 'reseller-store-settings' ),
+					'type'        => 'checkbox',
+					'checked'     => 1,
+					'description' => esc_html__( 'Default value is checked.', 'reseller-store-settings' ),
 				);
 
 				$settings[] = array(
@@ -557,9 +661,9 @@ final class Settings {
 				$settings[] = array(
 					'name'        => 'product_redirect',
 					'label'       => esc_html__( 'Redirect to cart', 'reseller-store-settings' ),
-					'type'        => 'select',
-					'list'        => self::$options,
-					'description' => esc_html__( 'Override Redirect to cart after adding item. Default means no override set.', 'reseller-store-settings' ),
+					'type'        => 'checkbox',
+					'checked'     => 1,
+					'description' => esc_html__( 'Default value is checked to redirect to cart after adding item.', 'reseller-store-settings' ),
 				);
 
 				$settings[] = array(
@@ -571,11 +675,11 @@ final class Settings {
 				);
 
 				$settings[] = array(
-					'name'        => 'product_set_content_height',
-					'label'       => esc_html__( 'Set Content height', 'reseller-store-settings' ),
-					'type'        => 'select',
-					'list'        => self::$options,
-					'description' => esc_html__( 'Override fixed content height with product Permalink. Default means no override set.', 'reseller-store-settings' ),
+					'name'        => 'product_full_content_height',
+					'label'       => esc_html__( 'Set content height', 'reseller-store-settings' ),
+					'type'        => 'checkbox',
+					'checked'     => 1,
+					'description' => esc_html__( 'Default value checked. Uncheck to display full content in widget', 'reseller-store-settings' ),
 				);
 
 				$settings[] = array(
@@ -624,31 +728,27 @@ final class Settings {
 		$settings = self::reseller_settings( $active_tab );
 
 		?>
-		<style type="text/css">
-				.rstore-spinner {
-			visibility: hidden;
-			max-width: 20px;
-			height: auto;
-			margin-bottom: -4px;
-		}
-		.rstore-setting-text::placeholder {
-			font-style: italic;
-		}
-		.rstore-setting-text::-ms-input-placeholder {
-			font-style: italic;
-		}
-		</style>
-
 
 		<div class="wrap">
 			<h1> <?php esc_html_e( 'Reseller Store Settings', 'reseller-store-settings' ); ?> </h1>
 
 			<h2 class="nav-tab-wrapper">
-				<a href="?post_type=reseller_product&page=reseller-store-settings&tab=product_options" class="nav-tab <?php echo 'product_options' === $active_tab ? 'nav-tab-active' : ''; ?>">Product</a>
-				<a href="?post_type=reseller_product&page=reseller-store-settings&tab=localization_options" class="nav-tab <?php echo 'localization_options' === $active_tab ? 'nav-tab-active' : ''; ?>">Localization</a>
-				<a href="?post_type=reseller_product&page=reseller-store-settings&tab=setup_options" class="nav-tab <?php echo 'setup_options' === $active_tab ? 'nav-tab-active' : ''; ?>">Setup</a>
-				<a href="?post_type=reseller_product&page=reseller-store-settings&tab=developer_options" class="nav-tab <?php echo 'developer_options' === $active_tab ? 'nav-tab-active' : ''; ?>">Developer</a>
+				<a href="?post_type=reseller_product&page=reseller-store-settings&tab=product_options" class="nav-tab <?php echo 'product_options' === $active_tab ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Product', 'reseller-store-settings' ); ?></a>
+				<a href="?post_type=reseller_product&page=reseller-store-settings&tab=domain_options" class="nav-tab <?php echo 'domain_options' === $active_tab ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Domain', 'reseller-store-settings' ); ?></a>
+				<a href="?post_type=reseller_product&page=reseller-store-settings&tab=localization_options" class="nav-tab <?php echo 'localization_options' === $active_tab ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Localization', 'reseller-store-settings' ); ?></a>
+				<a href="?post_type=reseller_product&page=reseller-store-settings&tab=setup_options" class="nav-tab <?php echo 'setup_options' === $active_tab ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Setup', 'reseller-store-settings' ); ?></a>
+				<a href="?post_type=reseller_product&page=reseller-store-settings&tab=data_options" class="nav-tab <?php echo 'data_options' === $active_tab ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Data', 'reseller-store-settings' ); ?></a>
+				<a href="?post_type=reseller_product&page=reseller-store-settings&tab=developer_options" class="nav-tab <?php echo 'developer_options' === $active_tab ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Developer', 'reseller-store-settings' ); ?></a>
 			</h2>
+
+			<?php
+			if ( 'data_options' === $active_tab ) {
+				$this->import_button();
+				$this->export_button();
+				return;
+			}
+			?>
+
 
 			<form id="rstore-settings-form" >
 				<input type="hidden" name="active_tab" value="<?php echo esc_attr( $active_tab ); ?>" >
@@ -679,9 +779,10 @@ final class Settings {
 					echo '<td><label id="' . $setting['name'] . '" >' . $sync_time . '</label>';
 					break;
 				case 'checkbox':
+					$checked = $setting['checked'] ? empty( rstore_get_option( $setting['name'] ) ) : ! empty( rstore_get_option( $setting['name'] ) );
 					echo '<tr>';
 					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
-					echo '<td><input type="checkbox" id="' . $setting['name'] . '" name="' . $setting['name'] . '" value="1" ' . checked( rstore_get_option( $setting['name'], 0 ), 1, false ) . '  />';
+					echo '<td><input type="checkbox" id="' . $setting['name'] . '" name="' . $setting['name'] . '" value="1" ' . checked( $checked, true, false ) . '  />';
 					break;
 				case 'select':
 					echo '<tr>';
@@ -731,12 +832,16 @@ final class Settings {
 			rstore_get_option( 'pl_id' )
 		);
 
+		echo '<div class="card"><h2 class="title">';
+		esc_html_e( 'Check for new products', 'reseller-store-settings' );
+		echo '</h2><p>';
+		esc_html_e( 'Check API for new products. Note: This is will not update the content for any of your existing products that have been imported.', 'reseller-store-settings' );
+		echo '</p>';
 		echo sprintf(
-			'<div class="wrap rstore-settings-import"><a class="button" href="%s">%s</a></div>',
+			'<p class="wrap rstore-settings-import"><a class="button" href="%s">%s</a></p></div>',
 			$url,
 			esc_html( 'Import products', 'reseller-store-settings' )
 		);
-
 	}
 
 	/**
@@ -745,26 +850,28 @@ final class Settings {
 	 * @since  0.3.3
 	 */
 	function export_button() {
+
+		echo '<div class="card"><h2 class="title">';
+		esc_html_e( 'Export Products', 'reseller-store-settings' );
+		echo '</h2><p>';
+		esc_html_e( 'Backup your product data. This will generate a json object which will contain your product content.', 'reseller-store-settings' );
+		echo '</p>';
 		?>
-			<div class="wrap">
+			<div class="wrap rstore-settings-import">
 				<form id='rstore-settings-export'>
 				<?php wp_nonce_field( 'rstore_export', 'nonce' ); ?>
 					<input type="hidden" name="action" value="rstore_export">
 					<button type="submit" class="button link" ><?php esc_html_e( 'Export Products', 'reseller-store-settings' ); ?></button>
 				</form>
 
-				<div id="json-generator" class="json-generator mfp-hide mfp-with-anim">
-					<div class="json-content">
-						<div id="header">
-						</div>
-					</div>
+				<div id="json-generator" class="json-generator rstore-settings-hide">
 					<div class="container">
-						<button id='clipboard' class="button button-primary" data-clipboard-action="copy" data-clipboard-target="#json-text"><?php esc_html_e( 'Copy to clipboard', 'reseller-store-settings' ); ?></button>
 						<div id="json-content">
 							<p><textarea id="json-text"> </textarea></p>
 						</div>
 					</div>
 				</div>
+		</div>
 		</div>
 
 		<?php
@@ -827,7 +934,16 @@ final class Settings {
 				$val = absint( $val );
 			}
 
-			if ( empty( $val ) || 'default' === $val ) {
+			if ( 'checkbox' === $setting['type'] && 1 === $setting['checked'] ) {
+
+				if ( empty( $val ) ) {
+					$val = 1;
+				} else {
+					$val = null;
+				}
+			}
+
+			if ( empty( $val ) ) {
 				rstore_delete_option( $setting['name'] );
 			} else {
 				rstore_update_option( $setting['name'], $val );

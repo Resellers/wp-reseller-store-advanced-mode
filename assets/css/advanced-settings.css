@@ -3,7 +3,7 @@
   max-width: 635px;
   height: auto;
   min-height: 400px;
-  margin: 55px auto 20px auto;
+  margin: auto;
   background-color: #F8F8F8;
 }
 .json-generator textarea {
@@ -20,15 +20,23 @@
 .json-generator .content {
   padding: 0;
 }
-.json-generator .mfp-close-btn-in .mfp-close {
-  color: #fff !important;
-  right: -45px;
-  top: -17px !important;
-  opacity: 1 !important;
+
+.rstore-settings-hide {
+  display: none;
 }
-.json-generator #header {
-  padding: 30px 40px 10px 20px;
-  text-shadow: none !important;
-  background-color: #EDEDED;
-  border-bottom: 1px solid #E1E1E1;
+
+.rstore-spinner {
+  visibility: hidden;
+  max-width: 20px;
+  height: auto;
+  margin-bottom: -4px;
+}
+.rstore-setting-text::placeholder {
+  font-style: italic;
+}
+.rstore-setting-text::-ms-input-placeholder {
+  font-style: italic;
+}
+.rstore-settings-import {
+  padding-left: 10px;
 }
