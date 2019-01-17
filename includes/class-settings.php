@@ -612,7 +612,7 @@ final class Settings {
 			default:
 				$settings[] = array(
 					'name'        => 'product_layout_type',
-					'label'       => esc_html__( 'Widget Layout', 'reseller-store-settings' ),
+					'label'       => esc_html__( 'Layout type', 'reseller-store-settings' ),
 					'type'        => 'select',
 					'list'        => self::$layout_type,
 					'description' => esc_html__( 'Set product widget layout. Classic layout will display price and cart button at the bottom of widget.', 'reseller-store-settings' ),

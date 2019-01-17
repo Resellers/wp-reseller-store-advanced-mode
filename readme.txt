@@ -14,7 +14,7 @@ This is an add-on plugin for the [Reseller Store plugin](https://github.com/goda
 
 **Note: This plugin requires PHP 5.4 or higher**
 
-With this plugin, you will get an Settings menu that allows to tap into the filters in the Reseller Store plugin.
+With this plugin, a Settings menu is created in the Reseller Store that uses filters to control settings in the Reseller Store plugin.
 
 
 == Changelog ==
