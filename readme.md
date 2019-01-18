@@ -1,4 +1,6 @@
 # Reseller Store Settings #
+![Banner Image](.dev/wp-org-assets/banner-1544x500.png)
+
 **Contributors:** [bfocht](https://profiles.wordpress.org/bfocht)  
 **Tags:**              [admin](https://wordpress.org/plugins/tags/admin/), [posts](https://wordpress.org/plugins/tags/posts/), [users](https://wordpress.org/plugins/tags/users/)  
 **Requires at least:** 4.6  
@@ -16,7 +18,7 @@ This is an add-on plugin for the [Reseller Store plugin](https://github.com/goda
 
 **Note: This plugin requires PHP 5.4 or higher**
 
-With this plugin, you will get an Settings menu that allows to tap into the filters in the Reseller Store plugin.
+With this plugin, a Settings menu is created in the Reseller Store that uses filters to control settings in the Reseller Store plugin.
 
 
 ## Changelog ##

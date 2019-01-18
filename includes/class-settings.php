@@ -108,7 +108,8 @@ final class Settings {
 		add_action( 'admin_menu', [ $this, 'register' ] );
 		add_action( 'wp_ajax_rstore_settings_save', [ __CLASS__, 'save' ] );
 
-		if ( ! empty( rstore_get_option( 'product_layout_type' ) ) ) {
+		$product_layout_type = rstore_get_option( 'product_layout_type' );
+		if ( ! empty( $product_layout_type ) ) {
 			add_filter(
 				'rstore_product_layout_type',
 				function() {
@@ -117,7 +118,8 @@ final class Settings {
 			);
 		}
 
-		if ( ! empty( rstore_get_option( 'product_image_size' ) ) ) {
+		$product_image_size = rstore_get_option( 'product_image_size' );
+		if ( ! empty( $product_image_size ) ) {
 			add_filter(
 				'rstore_product_image_size',
 				function() {
@@ -126,7 +128,8 @@ final class Settings {
 			);
 		}
 
-		if ( ! empty( rstore_get_option( 'product_button_label' ) ) ) {
+		$product_button_label = rstore_get_option( 'product_button_label' );
+		if ( ! empty( $product_button_label ) ) {
 			add_filter(
 				'rstore_product_button_label',
 				function() {
@@ -135,7 +138,8 @@ final class Settings {
 			);
 		}
 
-		if ( ! empty( rstore_get_option( 'product_text_cart' ) ) ) {
+		$product_text_cart = rstore_get_option( 'product_text_cart' );
+		if ( ! empty( $product_text_cart ) ) {
 			add_filter(
 				'rstore_product_text_cart',
 				function() {
@@ -144,7 +148,8 @@ final class Settings {
 			);
 		}
 
-		if ( ! empty( rstore_get_option( 'product_text_more' ) ) ) {
+		$product_text_more = rstore_get_option( 'product_text_more' );
+		if ( ! empty( $product_text_more ) ) {
 			add_filter(
 				'rstore_product_text_more',
 				function() {
@@ -153,7 +158,8 @@ final class Settings {
 			);
 		}
 
-		if ( ! empty( rstore_get_option( 'product_show_title' ) ) ) {
+		$product_show_title = rstore_get_option( 'product_show_title' );
+		if ( ! empty( $product_show_title ) ) {
 			add_filter(
 				'rstore_product_show_title',
 				function() {
@@ -162,7 +168,8 @@ final class Settings {
 			);
 		}
 
-		if ( ! empty( rstore_get_option( 'product_show_content' ) ) ) {
+		$product_show_content = rstore_get_option( 'product_show_content' );
+		if ( ! empty( $product_show_content ) ) {
 			add_filter(
 				'rstore_product_show_content',
 				function() {
@@ -171,7 +178,8 @@ final class Settings {
 			);
 		}
 
-		if ( ! empty( rstore_get_option( 'product_show_price' ) ) ) {
+		$product_show_price = rstore_get_option( 'product_show_price' );
+		if ( ! empty( $product_show_price ) ) {
 			add_filter(
 				'rstore_product_show_price',
 				function() {
@@ -180,7 +188,8 @@ final class Settings {
 			);
 		}
 
-		if ( ! empty( rstore_get_option( 'product_redirect' ) ) ) {
+		$product_redirect = rstore_get_option( 'product_redirect' );
+		if ( ! empty( $product_redirect ) ) {
 			add_filter(
 				'rstore_product_redirect',
 				function() {
@@ -189,12 +198,15 @@ final class Settings {
 			);
 		}
 
-		if ( ! empty( rstore_get_option( 'product_content_height' ) ) || ! empty( rstore_get_option( 'product_full_content_height' ) ) ) {
+		$product_content_height      = rstore_get_option( 'product_content_height' );
+		$product_full_content_height = rstore_get_option( 'product_full_content_height' );
+		if ( ! empty( $product_content_height ) || ! empty( $product_full_content_height ) ) {
 			add_filter(
 				'rstore_product_content_height',
 				function( $original_height ) {
 
-					if ( rstore_get_option( 'product_full_content_height' ) ) {
+					$product_full_content_height = rstore_get_option( 'product_full_content_height' );
+					if ( $product_full_content_height ) {
 						return 0;
 					}
 
@@ -209,7 +221,8 @@ final class Settings {
 			);
 		}
 
-		if ( ! empty( rstore_get_option( 'domain_title' ) ) ) {
+		$domain_title = rstore_get_option( 'domain_title' );
+		if ( ! empty( $domain_title ) ) {
 			add_filter(
 				'rstore_domain_title',
 				function() {
@@ -218,7 +231,8 @@ final class Settings {
 			);
 		}
 
-		if ( ! empty( rstore_get_option( 'domain_text_placeholder' ) ) ) {
+		$domain_text_placeholder = rstore_get_option( 'domain_text_placeholder' );
+		if ( ! empty( $domain_text_placeholder ) ) {
 			add_filter(
 				'rstore_domain_text_placeholder',
 				function() {
@@ -227,7 +241,8 @@ final class Settings {
 			);
 		}
 
-		if ( ! empty( rstore_get_option( 'domain_text_search' ) ) ) {
+		$domain_text_search = rstore_get_option( 'domain_text_search' );
+		if ( ! empty( $domain_text_search ) ) {
 			add_filter(
 				'rstore_domain_text_search',
 				function() {
@@ -236,7 +251,8 @@ final class Settings {
 			);
 		}
 
-		if ( ! empty( rstore_get_option( 'domain_transfer_title' ) ) ) {
+		$domain_transfer_title = rstore_get_option( 'domain_transfer_title' );
+		if ( ! empty( $domain_transfer_title ) ) {
 			add_filter(
 				'rstore_domain_transfer_title',
 				function() {
@@ -245,7 +261,8 @@ final class Settings {
 			);
 		}
 
-		if ( ! empty( rstore_get_option( 'domain_transfer_text_placeholder' ) ) ) {
+		$domain_transfer_text_placeholder = rstore_get_option( 'domain_transfer_text_placeholder' );
+		if ( ! empty( $domain_transfer_text_placeholder ) ) {
 			add_filter(
 				'rstore_domain_transfer_text_placeholder',
 				function() {
@@ -254,7 +271,8 @@ final class Settings {
 			);
 		}
 
-		if ( ! empty( rstore_get_option( 'domain_transfer_text_search' ) ) ) {
+		$domain_transfer_text_search = rstore_get_option( 'domain_transfer_text_search' );
+		if ( ! empty( $domain_transfer_text_search ) ) {
 			add_filter(
 				'rstore_domain_transfer_text_search',
 				function() {
@@ -263,7 +281,8 @@ final class Settings {
 			);
 		}
 
-		if ( ! empty( rstore_get_option( 'domain_page_size' ) ) ) {
+		$domain_page_size = rstore_get_option( 'domain_page_size' );
+		if ( ! empty( $domain_page_size ) ) {
 			add_filter(
 				'rstore_domain_page_size',
 				function() {
@@ -272,7 +291,8 @@ final class Settings {
 			);
 		}
 
-		if ( ! empty( rstore_get_option( 'domain_modal' ) ) ) {
+		$domain_modal = rstore_get_option( 'domain_modal' );
+		if ( ! empty( $domain_modal ) ) {
 			add_filter(
 				'rstore_domain_modal',
 				function() {
@@ -281,7 +301,8 @@ final class Settings {
 			);
 		}
 
-		if ( ! empty( rstore_get_option( 'api_tld' ) ) ) {
+		$api_tld = rstore_get_option( 'api_tld' );
+		if ( ! empty( $api_tld ) ) {
 			add_filter(
 				'rstore_api_tld',
 				function() {
@@ -291,7 +312,8 @@ final class Settings {
 			add_filter( 'rstore_domain_search_html', [ $this, 'rstore_domain_search_html' ] );
 		}
 
-		if ( ! empty( rstore_get_option( 'setup_rcc' ) ) ) {
+		$setup_rcc = rstore_get_option( 'setup_rcc' );
+		if ( ! empty( $setup_rcc ) ) {
 			add_filter(
 				'rstore_setup_rcc',
 				function() {
@@ -300,18 +322,35 @@ final class Settings {
 			);
 		}
 
-		if ( ! empty( rstore_get_option( 'rstore_sync_ttl' ) ) ) {
+		$sync_ttl = rstore_get_option( 'sync_ttl' );
+		if ( ! empty( $sync_ttl ) ) {
 			add_filter(
 				'rstore_sync_ttl',
 				function() {
-					return rstore_get_option( 'rstore_sync_ttl' );
+					return rstore_get_option( 'sync_ttl' );
 				}
 			);
 		}
 
-		add_filter( 'rstore_api_query_args', [ $this, 'rstore_api_query_args_filter' ] );
+		$product_isc = rstore_get_option( 'product_isc' );
+		if ( ! empty( $product_isc ) ) {
+			add_filter(
+				'rstore_cart_options',
+				function( $cart_vars ) {
+					$cart_vars['isc'] = rstore_get_option( 'product_isc' );
+					return $cart_vars;
+				}
+			);
+		}
 
-		if ( rstore_get_option( 'debug' ) ) {
+		$market   = rstore_get_option( 'api_market' );
+		$currency = rstore_get_option( 'api_currency' );
+		if ( ! empty( $market ) || ! empty( $currency ) ) {
+			add_filter( 'rstore_api_query_args', [ $this, 'rstore_api_query_args_filter' ] );
+		}
+
+		$debug = rstore_get_option( 'debug' );
+		if ( $debug ) {
 			add_action(
 				'add_meta_boxes',
 				function () {
@@ -537,6 +576,7 @@ final class Settings {
 				);
 
 				break;
+
 			case 'setup_options':
 				$settings[] = array(
 					'name'        => 'pl_id',
@@ -695,6 +735,14 @@ final class Settings {
 					'type'        => 'text',
 					'placeholder' => esc_html__( 'More info', 'reseller-store' ),
 					'description' => esc_html__( 'Override the permalink text. Empty field means no override set.', 'reseller-store-settings' ),
+				);
+
+				$settings[] = array(
+					'name'        => 'product_isc',
+					'label'       => esc_html__( 'Promo code', 'reseller-store-settings' ),
+					'type'        => 'text',
+					'placeholder' => '',
+					'description' => esc_html__( 'Enter an ISC promo code.', 'reseller-store-settings' ),
 				);
 
 				break;
@@ -943,7 +991,7 @@ final class Settings {
 				}
 			}
 
-			if ( empty( $val ) ) {
+			if ( empty( $val ) || 'default' === $val ) {
 				rstore_delete_option( $setting['name'] );
 			} else {
 				rstore_update_option( $setting['name'], $val );
