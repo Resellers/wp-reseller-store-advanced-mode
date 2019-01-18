@@ -827,7 +827,8 @@ final class Settings {
 					echo '<td><label id="' . $setting['name'] . '" >' . $sync_time . '</label>';
 					break;
 				case 'checkbox':
-					$checked = $setting['checked'] ? empty( rstore_get_option( $setting['name'] ) ) : ! empty( rstore_get_option( $setting['name'] ) );
+					$name    = rstore_get_option( $setting['name'] );
+					$checked = $setting['checked'] ? empty( $name ) : ! empty( $name );
 					echo '<tr>';
 					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
 					echo '<td><input type="checkbox" id="' . $setting['name'] . '" name="' . $setting['name'] . '" value="1" ' . checked( $checked, true, false ) . '  />';
