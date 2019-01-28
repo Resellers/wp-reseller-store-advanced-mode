@@ -2,15 +2,15 @@
 ![Banner Image](.dev/wp-org-assets/banner-1544x500.png)
 
 **Contributors:** [bfocht](https://profiles.wordpress.org/bfocht)  
-**Tags:**              [admin](https://wordpress.org/plugins/tags/admin/), [posts](https://wordpress.org/plugins/tags/posts/), [users](https://wordpress.org/plugins/tags/users/)  
+**Tags:**              [admin](https://wordpress.org/plugins/tags/admin/), [posts](https://wordpress.org/plugins/tags/posts/), [settings](https://wordpress.org/plugins/tags/settings/), [storefront](https://wordpress.org/plugins/tags/storefront/), [filters](https://wordpress.org/plugins/tags/filters/), [actions](https://wordpress.org/plugins/tags/actions/), [shortcode](https://wordpress.org/plugins/tags/shortcode/), [ecommerce](https://wordpress.org/plugins/tags/ecommerce/)  
 **Requires at least:** 4.6  
-**Tested up to:**      5.2  
+**Tested up to:**      5.0  
 **Requires PHP:**      5.4  
 **Stable tag:**        1.8.0  
 **License:**           GPL-2.0  
 **License URI:**       https://www.gnu.org/licenses/gpl-2.0.html  
 
-This is an add-on plugin for the [Reseller Store plugin](https://github.com/godaddy/wp-reseller-store/) that will create a settings menu.
+Extend the functionality of the Reseller Store plugin with a settings menu to access filters and advanced settings.
 
 [![Build Status](https://travis-ci.org/Resellers/wp-reseller-store-settings.svg?branch=master)](https://travis-ci.org/Resellers/wp-reseller-store-settings) [![devDependencies Status](https://david-dm.org/Resellers/wp-reseller-store-settings/master/dev-status.svg)](https://david-dm.org/Resellers/wp-reseller-store-settings/master?type=dev) [![License](https://img.shields.io/badge/license-GPL--2.0-brightgreen.svg)](https://github.com/Resellers/wp-reseller-store-settings/blob/master/license.txt) [![PHP >= 5.4](https://img.shields.io/badge/php-%3E=%205.4-8892bf.svg)](https://secure.php.net/supported-versions.php) [![WordPress >= 4.6](https://img.shields.io/badge/wordpress-%3E=%204.6-blue.svg)](https://wordpress.org/download/release-archive/)  
 
@@ -18,7 +18,11 @@ This is an add-on plugin for the [Reseller Store plugin](https://github.com/goda
 
 **Note: This plugin requires PHP 5.4 or higher**
 
-With this plugin, a Settings menu is created in the Reseller Store that uses filters to control settings in the Reseller Store plugin.
+With this plugin, a Settings menu is created in the Reseller Store [Reseller Store plugin](https://github.com/godaddy/wp-reseller-store/) using filters and actions to control settings in the Reseller Store plugin.
+
+* Change the default behavior of the Product and Domain widgets/blocks.
+* Override the currency and language settings in the plugin
+* Import and export the Reseller Store products
 
 
 ## Changelog ##
