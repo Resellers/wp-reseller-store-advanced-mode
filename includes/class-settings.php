@@ -538,6 +538,21 @@ final class Settings {
 				);
 
 				$settings[] = array(
+					'name'        => 'domain_page_size',
+					'label'       => esc_html__( 'Page size', 'reseller-store-settings' ),
+					'type'        => 'number',
+					'description' => esc_html__( 'Override the number of results returned forß the advanced domain search.  Empty field means no override set.', 'reseller-store-settings' ),
+				);
+
+				$settings[] = array(
+					'name'        => 'domain_modal',
+					'label'       => esc_html__( 'Display results in a modal', 'reseller-store-settings' ),
+					'type'        => 'checkbox',
+					'checked'     => 0,
+					'description' => esc_html__( 'Display the results in a popup modal for the advanced domain search. Unchecked will default to no modal.', 'reseller-store-settings' ),
+				);
+
+				$settings[] = array(
 					'name'        => 'domain_transfer_title',
 					'label'       => esc_html__( 'Domain transfer title', 'reseller-store-settings' ),
 					'type'        => 'text',
@@ -560,21 +575,6 @@ final class Settings {
 					'description' => esc_html__( 'Override the title text. Empty field means no override set.', 'reseller-store-settings' ),
 				);
 
-				$settings[] = array(
-					'name'        => 'domain_page_size',
-					'label'       => esc_html__( 'Page size', 'reseller-store-settings' ),
-					'type'        => 'number',
-					'description' => esc_html__( 'Override the number of results returned.  Empty field means no override set.', 'reseller-store-settings' ),
-				);
-
-				$settings[] = array(
-					'name'        => 'domain_modal',
-					'label'       => esc_html__( 'Display results in a modal', 'reseller-store-settings' ),
-					'type'        => 'checkbox',
-					'checked'     => 0,
-					'description' => esc_html__( 'Display the results in a popup modal. Unchecked will default to no modal.', 'reseller-store-settings' ),
-				);
-
 				break;
 
 			case 'setup_options':
@@ -582,7 +582,7 @@ final class Settings {
 					'name'        => 'pl_id',
 					'label'       => esc_html__( 'Private Label Id', 'reseller-store-settings' ),
 					'type'        => 'number',
-					'description' => esc_html__( 'The private label id that you have set for your storefront.', 'reseller-store-settings' ),
+					'description' => esc_html__( 'The private label identifies your storefront.', 'reseller-store-settings' ),
 				);
 
 				$settings[] = array(
@@ -724,9 +724,9 @@ final class Settings {
 
 				$settings[] = array(
 					'name'        => 'product_content_height',
-					'label'       => esc_html__( 'Content size', 'reseller-store-settings' ),
+					'label'       => esc_html__( 'Content height', 'reseller-store-settings' ),
 					'type'        => 'number',
-					'description' => esc_html__( 'Override the product description content size.  Empty field means no override set.', 'reseller-store-settings' ),
+					'description' => esc_html__( 'Override the product description content height (in pixels).  Empty field means no override set.', 'reseller-store-settings' ),
 				);
 
 				$settings[] = array(
