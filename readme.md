@@ -16,18 +16,23 @@ Extend the functionality of the Reseller Store plugin with a settings menu to ac
 
 ## Description ##
 
-**Note: This plugin requires PHP 5.4 or higher**
-
 With this plugin, a Settings menu is created in the Reseller Store [Reseller Store plugin](https://github.com/godaddy/wp-reseller-store/) using filters and actions to control settings in the Reseller Store plugin.
+
+**Features**
 
 * Change the default behavior of the Product and Domain widgets/blocks.
 * Override the currency and language settings in the plugin
 * Import and export the Reseller Store products
 
+**Contributing**
+
+Development of this plugin is done on [GitHub](https://github.com/Resellers/wp-reseller-store-settings). Pull requests on existing issues are welcome!
+
+**Note: This plugin requires PHP 5.4 or higher**
 
 ## Changelog ##
 
-### 2.0.0 - January 2019 ###
+### 1.8.0 - January 2019 ###
 * Renamed plugin
 * Add tabs to the settings page
 * Create products tab and add filters
