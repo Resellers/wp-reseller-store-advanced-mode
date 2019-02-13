@@ -335,11 +335,14 @@ final class Settings {
 		$product_isc = rstore_get_option( 'product_isc' );
 		if ( ! empty( $product_isc ) ) {
 			add_filter(
-				'rstore_cart_options',
-				function( $cart_vars ) {
-					$cart_vars['isc'] = rstore_get_option( 'product_isc' );
-					return $cart_vars;
-				}
+				'rstore_api_query_args',
+				function( $args, $url_key ) {
+					if ( 'cart_api' === $url_key ) {
+						$args['isc'] = rstore_get_option( 'product_isc' );
+					}
+					return $args;
+				},
+                10, 2
 			);
 		}
 
