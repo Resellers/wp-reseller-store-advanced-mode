@@ -44,6 +44,6 @@
   },
   "scripts": {
     "version": "grunt version && git add -A .",
-    "lint": "eslint --ext .js ./assets/js"
+    "lint": "eslint --ext .js ./assets/js --fix"
   }
 }

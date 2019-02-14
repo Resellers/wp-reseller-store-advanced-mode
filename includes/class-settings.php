@@ -107,6 +107,7 @@ final class Settings {
 		add_action( 'admin_init', [ $this, 'reseller_register_settings' ] );
 		add_action( 'admin_menu', [ $this, 'register' ] );
 		add_action( 'wp_ajax_rstore_settings_save', [ __CLASS__, 'save' ] );
+		add_action( 'wp_ajax_rstore_settings_import', [ __CLASS__, 'import' ] );
 
 		$product_layout_type = rstore_get_option( 'product_layout_type' );
 		if ( ! empty( $product_layout_type ) ) {
@@ -342,7 +343,8 @@ final class Settings {
 					}
 					return $args;
 				},
-                10, 2
+				10,
+				2
 			);
 		}
 
@@ -871,29 +873,43 @@ final class Settings {
 	}
 
 	/**
+	 * Call the setup install function
+	 *
+	 * @param int $pl_id  Private label id.
+	 *
+	 * @since NEXT
+	 */
+	public static function import( $pl_id = 0 ) {
+
+		if ( class_exists( '\Reseller_Store\Setup' ) ) {
+
+			$setup = new \Reseller_Store\Setup;
+
+			$setup->install( $pl_id );
+		}
+	}
+
+	/**
 	 * Generate import button
 	 *
 	 * @since  0.3.3
 	 */
 	function import_button() {
+		?>
+		<div class="card">
+			<h2 class="title"><?php esc_html_e( 'Check for new products', 'reseller-store-settings' ); ?></h2>
+			<p><?php esc_html_e( 'Check API for new products. Note: This is will not update the content for any of your existing products that have been imported.', 'reseller-store-settings' ); ?></p>
+			<div class="wrap">
+				<form id='rstore-settings-import'>
+					<input type="hidden" name="action" value="rstore_settings_import">
+					<input type="hidden" name="nonce" value="<?php echo  wp_create_nonce( null ); ?>">
+					<input type="hidden" name="pl_id" value="<?php echo rstore_get_option( 'pl_id' ); ?>">
+					<button type="submit" class="button link" ><?php esc_html_e( 'Import Products', 'reseller-store-settings' ); ?></button>
+				</form>
+			</div>
+		</div>
+		<?php
 
-		$url = sprintf(
-			'%s?page=reseller-store-setup&nonce=%s&rstore_plid=%s',
-			admin_url( 'admin.php' ),
-			wp_create_nonce( rstore_prefix( 'install-' . get_current_user_id() ) ),
-			rstore_get_option( 'pl_id' )
-		);
-
-		echo '<div class="card"><h2 class="title">';
-		esc_html_e( 'Check for new products', 'reseller-store-settings' );
-		echo '</h2><p>';
-		esc_html_e( 'Check API for new products. Note: This is will not update the content for any of your existing products that have been imported.', 'reseller-store-settings' );
-		echo '</p>';
-		echo sprintf(
-			'<p class="wrap rstore-settings-import"><a class="button" href="%s">%s</a></p></div>',
-			$url,
-			esc_html( 'Import products', 'reseller-store-settings' )
-		);
 	}
 
 	/**
@@ -909,7 +925,7 @@ final class Settings {
 		esc_html_e( 'Backup your product data. This will generate a json object which will contain your product content.', 'reseller-store-settings' );
 		echo '</p>';
 		?>
-			<div class="wrap rstore-settings-import">
+			<div class="wrap">
 				<form id='rstore-settings-export'>
 				<?php wp_nonce_field( 'rstore_export', 'nonce' ); ?>
 					<input type="hidden" name="action" value="rstore_export">
@@ -923,7 +939,7 @@ final class Settings {
 						</div>
 					</div>
 				</div>
-		</div>
+			</div>
 		</div>
 
 		<?php

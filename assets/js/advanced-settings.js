@@ -33,8 +33,21 @@
 		$.post( ajaxurl, $this.serialize(), function( response ) {
 			if ( response ) {
 				$( '#json-text' ).text( JSON.stringify( response ) );
-				$('#json-generator').show();
+				$( '#json-generator' ).show();
+			}
+		} );
+		return false;
+	};
 
+	var importProduct = function( e ) {
+		e.preventDefault();
+		var $this = $( this );
+
+		$.post( ajaxurl, $this.serialize(), function( response ) {
+			if ( response.success ) {
+				window.location.replace( response.data.redirect );
+
+				return false;
 			}
 		} );
 		return false;
@@ -43,5 +56,6 @@
 	$( document ).ready( function() {
 		$( '#rstore-settings-form' ).on( 'submit', save );
 		$( '#rstore-settings-export' ).on( 'submit', exportProduct );
+		$( '#rstore-settings-import' ).on( 'submit', importProduct );
 	} );
 } )( jQuery );
