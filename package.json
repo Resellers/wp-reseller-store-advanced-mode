@@ -2,7 +2,7 @@
   "name": "reseller-store-settings",
   "title": "Reseller Store Settings WordPress plugin",
   "description": "Access advanced settings and filters for the Reseller Store WordPress plugin",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "author": "GoDaddy",
   "license": "GPL-2.0",
   "repository": "Resellers/wp-reseller-store-settings",

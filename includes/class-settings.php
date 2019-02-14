@@ -877,7 +877,7 @@ final class Settings {
 	 *
 	 * @param int $pl_id  Private label id.
 	 *
-	 * @since NEXT
+	 * @since 1.8.1
 	 */
 	public static function import( $pl_id = 0 ) {
 
