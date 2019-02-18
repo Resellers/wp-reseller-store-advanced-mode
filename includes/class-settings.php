@@ -592,12 +592,12 @@ final class Settings {
 
 				$settings[] = array(
 					'name'  => 'last_sync',
-					'label' => esc_html__( 'Last Api Sync', 'reseller-store-settings' ),
+					'label' => esc_html__( 'Last API Sync', 'reseller-store-settings' ),
 					'type'  => 'time',
 				);
 				$settings[] = array(
 					'name'  => 'next_sync',
-					'label' => esc_html__( 'Next Api Sync', 'reseller-store-settings' ),
+					'label' => esc_html__( 'Next API Sync', 'reseller-store-settings' ),
 					'type'  => 'time',
 				);
 
@@ -624,21 +624,21 @@ final class Settings {
 			case 'developer_options':
 				$settings[] = array(
 					'name'        => 'sync_ttl',
-					'label'       => esc_html__( 'Api Sync TTL (seconds)', 'reseller-store-settings' ),
+					'label'       => esc_html__( 'API Sync TTL (seconds)', 'reseller-store-settings' ),
 					'type'        => 'number',
 					'description' => esc_html__( 'Reseller store will check the api for changes periodically. The default is 15 minutes (900 seconds).', 'reseller-store-settings' ),
 				);
 
 				$settings[] = array(
 					'name'        => 'api_tld',
-					'label'       => esc_html__( 'Api Url', 'reseller-store-settings' ),
+					'label'       => esc_html__( 'API URL', 'reseller-store-settings' ),
 					'type'        => 'text',
 					'placeholder' => 'secureserver.net',
 					'description' => esc_html__( 'Set url for internal testing.', 'reseller-store-settings' ),
 				);
 				$settings[] = array(
 					'name'        => 'setup_rcc',
-					'label'       => esc_html__( 'RCC Url', 'reseller-store-settings' ),
+					'label'       => esc_html__( 'RCC URL', 'reseller-store-settings' ),
 					'type'        => 'text',
 					'placeholder' => 'https://reseller.godaddy.com',
 					'description' => esc_html__( 'Set url for internal testing.', 'reseller-store-settings' ),
