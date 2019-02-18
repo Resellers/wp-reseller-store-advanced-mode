@@ -65,7 +65,7 @@ trait Data {
 
 		if ( ! $this->data ) {
 
-			$this->data = new \stdClass;
+			$this->data = new \stdClass();
 
 		}
 

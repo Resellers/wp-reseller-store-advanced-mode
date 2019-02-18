@@ -74,8 +74,8 @@ final class Plugin {
 			}
 		);
 
-		new Settings;
-		new Export;
+		new Settings();
+		new Export();
 
 	}
 

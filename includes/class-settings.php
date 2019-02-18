@@ -58,7 +58,7 @@ final class Settings {
 	 *
 	 * @var array
 	 */
-	static $currencies = [ 'default', 'USD', 'AED', 'ARS', 'AUD', 'BRL', 'CAD', 'CHF', 'CLP', 'CNY', 'COP', 'CZK', 'DKK', 'EGP', 'EUR', 'GBP', 'HKD', 'HUF', 'IDR', 'ILS', 'INR', 'JPY', 'KRW', 'MAD', 'MXN', 'MYR', 'NOK', 'NZD', 'PEN', 'PHP', 'PKR', 'PLN', 'RON', 'RUB', 'SAR', 'SEK', 'SGD', 'THB', 'TRY', 'TWD', 'UAH', 'UYU', 'VND', 'ZAR' ];
+	static $currencies = [ 'default', 'USD', 'AED', 'ARS', 'AUD', 'BRL', 'CAD', 'CHF', 'CLP', 'CNY', 'COP', 'CZK', 'DKK', 'EGP', 'EUR', 'GBP', 'HKD', 'HUF', 'IDR', 'ILS', 'INR', 'JPY', 'KRW', 'MAD', 'MXN', 'MYR', 'NOK', 'NZD', 'PEN', 'PHP', 'PKR', 'PLN', 'RON', 'RUB', 'SAR', 'SEK', 'SGD', 'THB', 'TRY', 'TWD', 'UAH', 'UYU', 'VND', 'ZAR' ]; // @codingStandardsIgnoreLine
 
 	/**
 	 * Array of markets.
@@ -67,7 +67,7 @@ final class Settings {
 	 *
 	 * @var array
 	 */
-	static $markets = [ 'default', 'da-DK', 'de-DE', 'el-GR', 'en-US', 'es-MX', 'fi-FI', 'fr-FR', 'hi-IN', 'id-ID', 'it-IT', 'ja-JP', 'ko-KR', 'mr-IN', 'nb-NO', 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sv-SE', 'ta-IN', 'th-TH', 'tr-TR', 'uk-UA', 'vi-VN', 'zh-CN', 'zh-TW' ];
+	static $markets = [ 'default', 'da-DK', 'de-DE', 'el-GR', 'en-US', 'es-MX', 'fi-FI', 'fr-FR', 'hi-IN', 'id-ID', 'it-IT', 'ja-JP', 'ko-KR', 'mr-IN', 'nb-NO', 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sv-SE', 'ta-IN', 'th-TH', 'tr-TR', 'uk-UA', 'vi-VN', 'zh-CN', 'zh-TW' ];  // @codingStandardsIgnoreLine
 
 	/**
 	 * Array of product layouts.
@@ -76,7 +76,7 @@ final class Settings {
 	 *
 	 * @var array
 	 */
-	static $layout_type = [ 'default', 'classic' ];
+	static $layout_type = [ 'default', 'classic' ];  // @codingStandardsIgnoreLine
 
 	/**
 	 * Array of product image sizes.
@@ -85,7 +85,7 @@ final class Settings {
 	 *
 	 * @var array
 	 */
-	static $image_size = [ 'default', 'icon', 'thumbnail', 'medium', 'large', 'full', 'none' ];
+	static $image_size = [ 'default', 'icon', 'thumbnail', 'medium', 'large', 'full', 'none' ];  // @codingStandardsIgnoreLine
 
 	/**
 	 * Array of available tabs in settings.
@@ -94,7 +94,7 @@ final class Settings {
 	 *
 	 * @var array
 	 */
-	static $available_tabs = [ 'product_options', 'domain_options', 'localization_options', 'setup_options', 'data_options', 'developer_options' ];
+	static $available_tabs = [ 'product_options', 'domain_options', 'localization_options', 'setup_options', 'data_options', 'developer_options' ];  // @codingStandardsIgnoreLine
 
 	/**
 	 * Class constructor.
@@ -364,8 +364,7 @@ final class Settings {
 						'Debug Info',
 						function () {
 							global $post;
-							echo var_dump( get_post_meta( $post->ID ) );
-
+							echo var_dump( get_post_meta( $post->ID ) ); // @codingStandardsIgnoreLine
 						},
 						self::SLUG,
 						'advanced',
@@ -476,7 +475,7 @@ final class Settings {
 	 *
 	 * @since  0.3.3
 	 */
-	function edit_settings() {
+	public function edit_settings() {
 
 		if ( ! ( rstore_is_admin_uri( self::PAGE_SLUG, false ) ||
 			rstore_is_admin_uri( self::SETTINGS_PAGE_SLUG, false ) ) ) {
@@ -494,7 +493,7 @@ final class Settings {
 	 *
 	 * @since  1.8.0
 	 */
-	function get_active_tab() {
+	public function get_active_tab() {
 
 		$active_tab = filter_input( INPUT_GET, 'tab' );
 
@@ -513,7 +512,7 @@ final class Settings {
 	 * @param string $active_tab The tab the admin is currently on.
 	 * @return array
 	 */
-	static function reseller_settings( $active_tab ) {
+	public static function reseller_settings( $active_tab ) {
 
 		$settings = array();
 
@@ -761,7 +760,7 @@ final class Settings {
 	 *
 	 * @since  0.3.3
 	 */
-	function reseller_register_settings() {
+	public function reseller_register_settings() {
 
 		$settings = self::reseller_settings( $this->get_active_tab() );
 		foreach ( $settings as $setting ) {
@@ -774,7 +773,7 @@ final class Settings {
 	 *
 	 * @since  0.3.3
 	 */
-	function settings_output() {
+	public function settings_output() {
 
 		$active_tab = $this->get_active_tab();
 
@@ -817,44 +816,44 @@ final class Settings {
 			switch ( $setting['type'] ) {
 				case 'text':
 					echo '<tr>';
-					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
-					echo '<td><input type="text" id="' . $setting['name'] . '" name="' . $setting['name'] . '" value="' . rstore_get_option( $setting['name'] ) . '" placeholder="' . $setting['placeholder'] . '" class="regular-text rstore-setting-text">';
+					echo '<th><label for="' . esc_attr( $setting['name'] ) . '">' . esc_html( $setting['label'] ) . '</label></th>';
+					echo '<td><input type="text" id="' . esc_attr( $setting['name'] ) . '" name="' . esc_html( $setting['name'] ) . '" value="' . esc_attr( rstore_get_option( $setting['name'] ) ) . '" placeholder="' . esc_attr( $setting['placeholder'] ) . '" class="regular-text rstore-setting-text">';
 					break;
 				case 'number':
 					echo '<tr>';
-					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
-					echo '<td><input type="number" id="' . $setting['name'] . '" name="' . $setting['name'] . '" value="' . rstore_get_option( $setting['name'] ) . '" class="regular-text">';
+					echo '<th><label for="' . esc_attr( $setting['name'] ) . '">' . esc_html( $setting['label'] ) . '</label></th>';
+					echo '<td><input type="number" id="' . esc_attr( $setting['name'] ) . '" name="' . esc_attr( $setting['name'] ) . '" value="' . esc_attr( rstore_get_option( $setting['name'] ) ) . '" class="regular-text">';
 					break;
 				case 'time':
 					$sync_time = get_date_from_gmt( date( 'Y-m-d H:i:s', rstore_get_option( $setting['name'] ) ), get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) );
 					echo '<tr>';
-					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
-					echo '<td><label id="' . $setting['name'] . '" >' . $sync_time . '</label>';
+					echo '<th><label for="' . esc_attr( $setting['name'] ) . '">' . esc_html( $setting['label'] ) . '</label></th>';
+					echo '<td><label id="' . esc_attr( $setting['name'] ) . '" >' . esc_html( $sync_time ) . '</label>';
 					break;
 				case 'checkbox':
 					$name    = rstore_get_option( $setting['name'] );
 					$checked = $setting['checked'] ? empty( $name ) : ! empty( $name );
 					echo '<tr>';
-					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
-					echo '<td><input type="checkbox" id="' . $setting['name'] . '" name="' . $setting['name'] . '" value="1" ' . checked( $checked, true, false ) . '  />';
+					echo '<th><label for="' . esc_attr( $setting['name'] ) . '">' . esc_html( $setting['label'] ) . '</label></th>';
+					echo '<td><input type="checkbox" id="' . esc_attr( $setting['name'] ) . '" name="' . esc_attr( $setting['name'] ) . '" value="1" ' . checked( $checked, true, false ) . '  />';
 					break;
 				case 'select':
 					echo '<tr>';
 
-					echo '<th><label for="' . $setting['name'] . '">' . $setting['label'] . '</label></th>';
-					echo '<td><select title="' . $setting['label'] . '" id="' . $setting['name'] . '" name="' . $setting['name'] . '" >';
+					echo '<th><label for="' . esc_attr( $setting['name'] ) . '">' . esc_html( $setting['label'] ) . '</label></th>';
+					echo '<td><select title="' . esc_attr( $setting['label'] ) . '" id="' . esc_attr( $setting['name'] ) . '" name="' . esc_attr( $setting['name'] ) . '" >';
 					foreach ( $setting['list'] as $item ) {
 						if ( rstore_get_option( $setting['name'] ) === $item ) {
-							echo "<option selected=\"selected\" value=\"$item\">$item</option>";
+							echo '<option selected="selected" value="' . esc_attr( $item ) . '">' . esc_html( $item ) . '</option>';
 						} else {
-							echo "<option value=\"$item\">$item</option>";
+							echo '<option value="' . esc_attr( $item ) . '">' . esc_html( $item ) . '</option>';
 						}
 					}
-					echo  '</select>';
+					echo '</select>';
 					break;
 			}
 			if ( array_key_exists( 'description', $setting ) ) {
-				echo '<p class="description" id="tagline-description">' . $setting['description'] . '</p></td>';
+				echo '<p class="description" id="tagline-description">' . esc_html( $setting['description'] ) . '</p></td>';
 			}
 			echo '</td></tr>';
 		}
@@ -883,7 +882,7 @@ final class Settings {
 
 		if ( class_exists( '\Reseller_Store\Setup' ) ) {
 
-			$setup = new \Reseller_Store\Setup;
+			$setup = new \Reseller_Store\Setup();
 
 			$setup->install( $pl_id );
 		}
@@ -894,7 +893,7 @@ final class Settings {
 	 *
 	 * @since  0.3.3
 	 */
-	function import_button() {
+	public function import_button() {
 		?>
 		<div class="card">
 			<h2 class="title"><?php esc_html_e( 'Check for new products', 'reseller-store-settings' ); ?></h2>
@@ -902,8 +901,8 @@ final class Settings {
 			<div class="wrap">
 				<form id='rstore-settings-import'>
 					<input type="hidden" name="action" value="rstore_settings_import">
-					<input type="hidden" name="nonce" value="<?php echo  wp_create_nonce( null ); ?>">
-					<input type="hidden" name="pl_id" value="<?php echo rstore_get_option( 'pl_id' ); ?>">
+					<input type="hidden" name="nonce" value="<?php echo esc_attr( wp_create_nonce( null ) ); ?>">
+					<input type="hidden" name="pl_id" value="<?php echo esc_attr( rstore_get_option( 'pl_id' ) ); ?>">
 					<button type="submit" class="button link" ><?php esc_html_e( 'Import Products', 'reseller-store-settings' ); ?></button>
 				</form>
 			</div>
@@ -917,7 +916,7 @@ final class Settings {
 	 *
 	 * @since  0.3.3
 	 */
-	function export_button() {
+	public function export_button() {
 
 		echo '<div class="card"><h2 class="title">';
 		esc_html_e( 'Export Products', 'reseller-store-settings' );
