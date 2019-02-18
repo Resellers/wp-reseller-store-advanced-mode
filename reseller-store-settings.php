@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Reseller Store Settings
- * Description: Advanced settings for the reseller store plugin
+ * Description: Advanced settings for the Reseller Store plugin.
  * Version: 1.8.1
  * Author: Reseller Team
  * Author URI: https://www.godaddy.com/reseller-program
