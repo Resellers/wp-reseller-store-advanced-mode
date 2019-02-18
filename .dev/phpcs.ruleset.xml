@@ -4,11 +4,6 @@
 
 	<rule ref="WordPress-Core">
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
-		<exclude name="Squiz.PHP.CommentedOutCode.Found" />
-	</rule>
-
-	<rule ref="WordPress-Extra">
-		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing" />
 	</rule>
 
 	<exclude-pattern>../node_modules/*</exclude-pattern>
