@@ -39,7 +39,7 @@ final class Export {
 	 *
 	 * @return string
 	 */
-	function export_posts() {
+	public function export_posts() {
 		$nonce = filter_input( INPUT_POST, 'nonce' );
 
 		if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'rstore_export' ) ) {
@@ -90,7 +90,7 @@ final class Export {
 	 *
 	 * @return mixed
 	 */
-	static function rstore_get_product_meta( $post_id, $key, $default = false, $setting_fallback = false ) {
+	public static function rstore_get_product_meta( $post_id, $key, $default = false, $setting_fallback = false ) {
 
 		$key = rstore_prefix( $key );
 
