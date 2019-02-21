@@ -32,6 +32,13 @@ Development of this plugin is done on [GitHub](https://github.com/Resellers/wp-
 
 ## Changelog ##
 
+### 1.8.2 - February 2019 ###
+* Tweak: Update URL and API string capitalization.
+* Tweak: Regenerate translations.
+
+### 1.8.1 ###
+* Various improvements.
+
 ### 1.8.0 - January 2019 ###
 * Renamed plugin
 * Add tabs to the settings page
